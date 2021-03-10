@@ -5,16 +5,30 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoronaSimulatie", "CoronaSimulatie\CoronaSimulatie.csproj", "{AD535528-EEB6-45AB-8063-44288BE4F7FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualCoronaSimulatie", "VisualCoronaSimulatie\VisualCoronaSimulatie.csproj", "{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Debug|x86.Build.0 = Debug|Any CPU
 		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Release|x86.ActiveCfg = Release|Any CPU
+		{AD535528-EEB6-45AB-8063-44288BE4F7FE}.Release|x86.Build.0 = Release|Any CPU
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Debug|x86.ActiveCfg = Debug|x86
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Debug|x86.Build.0 = Debug|x86
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Release|Any CPU.ActiveCfg = Release|x86
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Release|x86.ActiveCfg = Release|x86
+		{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
