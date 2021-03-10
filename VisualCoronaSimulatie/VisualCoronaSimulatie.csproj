@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6A0D3E6A-2CBB-492A-B561-5B259F5E3436}</ProjectGuid>
+    <ProjectGuid>{ECCEDBE6-F9CB-4744-9185-0DDE87EE061B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VisualCoronaSimulatie</RootNamespace>
@@ -40,8 +40,11 @@
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="SimulatieStart.cs" />
     <Compile Include="GameManagment\Assets\AssetManager.cs" />
     <Compile Include="GameManagment\Assets\Base\Drawable.cs" />
     <Compile Include="GameManagment\Assets\Base\SpriteSheet.cs" />
@@ -83,7 +86,6 @@
     <Compile Include="GameManagment\PostProcessingManager.cs" />
     <Compile Include="GameManagment\Screen.cs" />
     <Compile Include="GameManagment\StartUp\MonoGameLogo.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
