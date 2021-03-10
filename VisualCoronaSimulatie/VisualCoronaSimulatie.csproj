@@ -42,6 +42,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
+    <Compile Include="GameManagment\Assets\AssetManager.cs" />
+    <Compile Include="GameManagment\Assets\Base\Drawable.cs" />
+    <Compile Include="GameManagment\Assets\Base\SpriteSheet.cs" />
+    <Compile Include="GameManagment\Assets\Base\TextFont.cs" />
+    <Compile Include="GameManagment\Assets\Decorator\Animation.cs" />
+    <Compile Include="GameManagment\Assets\Decorator\DrawableSplit.cs" />
+    <Compile Include="GameManagment\Assets\Decorator\MultiAnimate.cs" />
+    <Compile Include="GameManagment\Assets\Decorator\SingleAnimation.cs" />
+    <Compile Include="GameManagment\Assets\Decorator\SingleDecorator.cs" />
+    <Compile Include="GameManagment\Assets\IAnimation.cs" />
+    <Compile Include="GameManagment\Assets\IDrawable.cs" />
+    <Compile Include="GameManagment\Assets\IDrawableSheet.cs" />
+    <Compile Include="GameManagment\Assets\Shader.cs" />
+    <Compile Include="GameManagment\Collisions\CollisionCone.cs" />
+    <Compile Include="GameManagment\Collisions\CollisionTriangle.cs" />
+    <Compile Include="GameManagment\Collisions\ICollidable.cs" />
+    <Compile Include="GameManagment\Command\CommandExecuter.cs" />
+    <Compile Include="GameManagment\Command\CommandLine.cs" />
+    <Compile Include="GameManagment\Command\CommandManager.cs" />
+    <Compile Include="GameManagment\Command\TextLine.cs" />
+    <Compile Include="GameManagment\Command\WrittenLines.cs" />
+    <Compile Include="GameManagment\DrawingHelper.cs" />
+    <Compile Include="GameManagment\GameEnvironment.cs" />
+    <Compile Include="GameManagment\GameObjects\Camera.cs" />
+    <Compile Include="GameManagment\GameObjects\DrawGameObject.cs" />
+    <Compile Include="GameManagment\GameObjects\GameObject.cs" />
+    <Compile Include="GameManagment\GameObjects\GameObjectGrid.cs" />
+    <Compile Include="GameManagment\GameObjects\GameObjectList.cs" />
+    <Compile Include="GameManagment\GameObjects\IGameLoopObject.cs" />
+    <Compile Include="GameManagment\GameObjects\MultiDrawGameObject.cs" />
+    <Compile Include="GameManagment\GameObjects\SpriteGameObject.cs" />
+    <Compile Include="GameManagment\GameObjects\TextGameObject.cs" />
+    <Compile Include="GameManagment\GameSettingsManager.cs" />
+    <Compile Include="GameManagment\GameStateManager.cs" />
+    <Compile Include="GameManagment\InputHelper.cs" />
+    <Compile Include="GameManagment\IO\File.cs" />
+    <Compile Include="GameManagment\IO\FileCommand.cs" />
+    <Compile Include="GameManagment\IO\FileManager.cs" />
+    <Compile Include="GameManagment\PostProcessingManager.cs" />
+    <Compile Include="GameManagment\Screen.cs" />
+    <Compile Include="GameManagment\StartUp\MonoGameLogo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

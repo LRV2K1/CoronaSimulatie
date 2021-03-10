@@ -1,0 +1,28 @@
+﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using Game1.GameManagment.Assets;
+
+namespace Game1.GameManagment.GameObjects
+{
+    public class TextGameObject : DrawGameObject
+    {
+        public TextGameObject(string assetName, int layer = 0, string id = "")
+            : base(new TextFont(assetName), layer, id)
+        {
+        }
+
+        public TextGameObject(TextFont textFont, int layer = 0, string id = "")
+            : base(textFont, layer, id)
+        {
+        }
+
+        /// <summary>
+        /// The textfont used to draw the text.
+        /// </summary>
+        public TextFont TextFont
+        {
+            get { return drawable as TextFont; }
+            set { drawable = value; }
+        }
+    }
+}
