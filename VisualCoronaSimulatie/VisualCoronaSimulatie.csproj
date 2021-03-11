@@ -49,15 +49,7 @@
     <Compile Include="GameManagment\Assets\Base\Drawable.cs" />
     <Compile Include="GameManagment\Assets\Base\SpriteSheet.cs" />
     <Compile Include="GameManagment\Assets\Base\TextFont.cs" />
-    <Compile Include="GameManagment\Assets\Decorator\Animation.cs" />
-    <Compile Include="GameManagment\Assets\Decorator\DrawableSplit.cs" />
-    <Compile Include="GameManagment\Assets\Decorator\MultiAnimate.cs" />
-    <Compile Include="GameManagment\Assets\Decorator\SingleAnimation.cs" />
-    <Compile Include="GameManagment\Assets\Decorator\SingleDecorator.cs" />
-    <Compile Include="GameManagment\Assets\IAnimation.cs" />
     <Compile Include="GameManagment\Assets\IDrawable.cs" />
-    <Compile Include="GameManagment\Assets\IDrawableSheet.cs" />
-    <Compile Include="GameManagment\Assets\Shader.cs" />
     <Compile Include="GameManagment\Command\CommandExecuter.cs" />
     <Compile Include="GameManagment\Command\CommandLine.cs" />
     <Compile Include="GameManagment\Command\CommandManager.cs" />
