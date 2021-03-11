@@ -28,6 +28,23 @@ namespace VisualCoronaSimulatie
             Content.RootDirectory = "Content";
         }
 
+        protected override void LoadContent()
+        {
+            base.LoadContent();
+
+
+            SpriteSheet sprite = new SpriteSheet(drawingHelper.GetTexture());
+            sprite.Color = Color.Red;
+            sprite.SpritePart = new Rectangle(0, 0, 20, 20);
+            DrawGameObject draw = new DrawGameObject(sprite);
+            GameObjectList<GameObject> state = new GameObjectList<GameObject>();
+            state.Add(draw);
+
+            GameStateManager.AddGameState("start", state);
+            GameStateManager.SwitchTo("start");
+
+        }
+
 
     }
 }

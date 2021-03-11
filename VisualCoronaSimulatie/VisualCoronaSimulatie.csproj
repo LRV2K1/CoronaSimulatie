@@ -83,7 +83,6 @@
     <Compile Include="GameManagment\IO\File.cs" />
     <Compile Include="GameManagment\IO\FileCommand.cs" />
     <Compile Include="GameManagment\IO\FileManager.cs" />
-    <Compile Include="GameManagment\PostProcessingManager.cs" />
     <Compile Include="GameManagment\Screen.cs" />
     <Compile Include="GameManagment\StartUp\MonoGameLogo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

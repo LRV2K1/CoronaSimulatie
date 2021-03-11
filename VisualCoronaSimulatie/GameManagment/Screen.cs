@@ -83,7 +83,6 @@ namespace Game1.GameManagment
             spriteTransform = Matrix.CreateScale(1,-1,1) * Matrix.CreateTranslation(new Vector3(screenSize.X/2f, screenSize.Y/2f, 0));                                       //sprite transformation matrix
 
             renderTarget = new RenderTarget2D(this.graphicsDevice, screenSize.X, screenSize.Y);                                                 //create rendertarget
-            //GameEnvironment.PostProcessingManager.ResizeScreen();
 
 
             screenRectangle = new Rectangle(-screenSize.X / 2, -screenSize.Y / 2, screenSize.X, screenSize.Y);
