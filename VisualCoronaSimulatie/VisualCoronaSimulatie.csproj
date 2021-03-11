@@ -58,9 +58,6 @@
     <Compile Include="GameManagment\Assets\IDrawable.cs" />
     <Compile Include="GameManagment\Assets\IDrawableSheet.cs" />
     <Compile Include="GameManagment\Assets\Shader.cs" />
-    <Compile Include="GameManagment\Collisions\CollisionCone.cs" />
-    <Compile Include="GameManagment\Collisions\CollisionTriangle.cs" />
-    <Compile Include="GameManagment\Collisions\ICollidable.cs" />
     <Compile Include="GameManagment\Command\CommandExecuter.cs" />
     <Compile Include="GameManagment\Command\CommandLine.cs" />
     <Compile Include="GameManagment\Command\CommandManager.cs" />
