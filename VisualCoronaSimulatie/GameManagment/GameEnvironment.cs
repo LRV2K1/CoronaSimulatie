@@ -21,7 +21,7 @@ namespace Game1.GameManagment
         protected static CommandManager commandManager;
         protected static DrawingHelper drawingHelper;
         protected static FileManager fileManager;
-        protected static PostProcessingManager postProcessingManager;
+        //protected static PostProcessingManager postProcessingManager;
 
         static bool quitGame;
         static Screen screen;
@@ -37,7 +37,7 @@ namespace Game1.GameManagment
             screen = new Screen(graphics);
             commandManager = new CommandManager();
             fileManager = new FileManager();
-            postProcessingManager = new PostProcessingManager();
+            //postProcessingManager = new PostProcessingManager();
 
             random = new Random();
 
@@ -54,7 +54,7 @@ namespace Game1.GameManagment
             spriteBatch = new SpriteBatch(GraphicsDevice);
             drawingHelper.Initialize(this.GraphicsDevice);
             AssetManager.Initialize(spriteBatch);
-            postProcessingManager.Initialize(this.GraphicsDevice);
+            //postProcessingManager.Initialize(this.GraphicsDevice);
             screen.Initialize(this.GraphicsDevice);
             commandManager.Initialize();
         }
@@ -101,11 +101,12 @@ namespace Game1.GameManagment
             gameStateManager.Draw(gameTime, spriteBatch, screen.SpriteTransform);
             GraphicsDevice.SetRenderTarget(null);
 
-            postProcessingManager.Draw(screen.RenderTarget, spriteBatch);
+            //postProcessingManager.Draw(screen.RenderTarget, spriteBatch);
 
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, screen.SpriteScale);
-            spriteBatch.Draw(postProcessingManager.FinalRender, Vector2.Zero, Color.White);
+            //spriteBatch.Draw(postProcessingManager.FinalRender, Vector2.Zero, Color.White);
+            spriteBatch.Draw(screen.RenderTarget, Vector2.Zero, Color.White);
             spriteBatch.End();
 
             commandManager.Draw(gameTime, spriteBatch, Matrix.CreateScale(1, -1, 1));
@@ -178,10 +179,10 @@ namespace Game1.GameManagment
         /// <summary>
         /// The postProcessingManager.
         /// </summary>
-        public static PostProcessingManager PostProcessingManager
-        {
-            get { return postProcessingManager; }
-        }
+        //public static PostProcessingManager PostProcessingManager
+        //{
+        //    get { return postProcessingManager; }
+        //}
 
         /// <summary>
         /// Variable to quit the game.

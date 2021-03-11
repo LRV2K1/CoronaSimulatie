@@ -27,5 +27,7 @@ namespace VisualCoronaSimulatie
         {
             Content.RootDirectory = "Content";
         }
+
+
     }
 }
