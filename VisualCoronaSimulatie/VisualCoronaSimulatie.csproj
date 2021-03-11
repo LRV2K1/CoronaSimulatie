@@ -57,7 +57,6 @@
     <Compile Include="GameManagment\Command\WrittenLines.cs" />
     <Compile Include="GameManagment\DrawingHelper.cs" />
     <Compile Include="GameManagment\GameEnvironment.cs" />
-    <Compile Include="GameManagment\GameObjects\Camera.cs" />
     <Compile Include="GameManagment\GameObjects\DrawGameObject.cs" />
     <Compile Include="GameManagment\GameObjects\GameObject.cs" />
     <Compile Include="GameManagment\GameObjects\GameObjectGrid.cs" />

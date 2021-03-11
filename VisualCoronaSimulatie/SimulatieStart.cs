@@ -6,7 +6,6 @@ using Game1.GameManagment;
 using Game1.GameManagment.GameObjects;
 using Game1.GameManagment.IO;
 using Game1.GameManagment.Assets;
-using Game1.GameManagment.StartUp;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 

@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Game1.GameManagment.Assets;
 using Game1.GameManagment.Command;
-using Game1.GameManagment.StartUp;
 
 namespace Game1.GameManagment
 {
@@ -63,13 +62,6 @@ namespace Game1.GameManagment
             gameStateManager.Clear();
             gameSettingsManager.UnLoad();
             fileManager.UnLoad();
-        }
-
-        protected virtual void Startup()
-        {
-#if !DEBUG
-            MonoGameLogo logo = new MonoGameLogo();
-#endif
         }
 
         protected virtual void HandleInput()
