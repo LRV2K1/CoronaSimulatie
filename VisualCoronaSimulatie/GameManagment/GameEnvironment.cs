@@ -15,7 +15,6 @@ namespace Engine.GameManagment
 
         protected static Random random;
         protected static AssetManager assetManager;
-        protected static GameSettingsManager gameSettingsManager;
         protected static GameStateManager gameStateManager;
         protected static CommandManager commandManager;
         protected static DrawingHelper drawingHelper;
@@ -29,7 +28,6 @@ namespace Engine.GameManagment
             graphics = new GraphicsDeviceManager(this);
             inputHelper = new InputHelper();
             assetManager = new AssetManager(Content);
-            gameSettingsManager = new GameSettingsManager();
             gameStateManager = new GameStateManager();
             drawingHelper = new DrawingHelper();
             screen = new Screen(graphics);
@@ -60,7 +58,6 @@ namespace Engine.GameManagment
             assetManager.Unload();
             gameStateManager.UnLoad();
             gameStateManager.Clear();
-            gameSettingsManager.UnLoad();
             fileManager.UnLoad();
         }
 
@@ -104,14 +101,6 @@ namespace Engine.GameManagment
         public static AssetManager AssetManager
         {
             get { return assetManager; }
-        }
-
-        /// <summary>
-        /// GamesettingsManager that stores all the gamesettings.
-        /// </summary>
-        public static GameSettingsManager GameSettingsManager
-        {
-            get { return gameSettingsManager; }
         }
 
         /// <summary>

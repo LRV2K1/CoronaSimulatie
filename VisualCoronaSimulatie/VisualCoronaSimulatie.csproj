@@ -65,7 +65,6 @@
     <Compile Include="GameManagment\GameObjects\IGameLoopObject.cs" />
     <Compile Include="GameManagment\GameObjects\SpriteGameObject.cs" />
     <Compile Include="GameManagment\GameObjects\TextGameObject.cs" />
-    <Compile Include="GameManagment\GameSettingsManager.cs" />
     <Compile Include="GameManagment\GameStateManager.cs" />
     <Compile Include="GameManagment\InputHelper.cs" />
     <Compile Include="GameManagment\IO\File.cs" />
