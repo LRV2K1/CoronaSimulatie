@@ -31,6 +31,10 @@ namespace VisualCoronaSimulatie
         DrawableWorld world;
         List<Person> people;
 
+        TextGameObject frames;
+        int frame;
+        float time;
+
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -40,6 +44,7 @@ namespace VisualCoronaSimulatie
             Screen.WindowSize = new Point(1600, 900);
 
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
+            GameObjectList<GameObject> simulatie = new GameObjectList<GameObject>();
 
 
             people = new List<Person>();
@@ -47,20 +52,26 @@ namespace VisualCoronaSimulatie
             {
                 DrawablePerson p = new DrawablePerson(random.Next(0, 9999), random.Next(0, 9999), random);
                 people.Add(p);
-                state.Add((p as DrawablePerson).Visual);
+                simulatie.Add((p as DrawablePerson).Visual);
             }
             world = new DrawableWorld(100, 100, 100, 100, people);
             foreach(DrawableTile t in world.Tiles)
             {
-                state.Add(t.Visual);
+                simulatie.Add(t.Visual);
             }
 
-            state.Position2 = new Vector2(-500, -500);
-            state.Scale = 0.1f;
+            simulatie.Position2 = new Vector2(-500, -500);
+            simulatie.Scale = 0.1f;
 
+
+            frames = new TextGameObject("Hud", 2);
+            frames.TextFont.Text = "start";
+            frames.Position2 = new Vector2(-960, 500);
+
+            state.Add(frames);
+            state.Add(simulatie);
             GameStateManager.AddGameState("start", state);
             GameStateManager.SwitchTo("start");
-
         }
 
         //protected override void HandleInput()
@@ -93,6 +104,19 @@ namespace VisualCoronaSimulatie
                 p.Sickness();
             }
 
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            frame++;
+            if (time >= 1f)
+            {
+                time--;
+                frames.TextFont.Text = frame.ToString();
+                frame = 0;
+            }
+            base.Draw(gameTime);
         }
     }
 }
