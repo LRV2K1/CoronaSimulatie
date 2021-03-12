@@ -13,6 +13,8 @@ namespace CoronaSimulatie.SimulationObjects
         protected Tile tile;
         protected Random random;
 
+        float direction;
+
         public Person(float x, float y, Random random)
         {
             this.x = x;
@@ -25,8 +27,15 @@ namespace CoronaSimulatie.SimulationObjects
             if (tile == null)
                 return;
 
-            x += ((float)random.NextDouble() - 0.5f) * 10;
-            y += ((float)random.NextDouble() - 0.5f) * 10;
+            direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
+            float distance = (float)random.NextDouble() * 5f;
+
+            x += (float)(distance * Math.Cos(direction));
+            y += (float)(distance * Math.Sin(direction));
+
+
+            //x += ((float)random.NextDouble() - 0.5f) * 10;
+            //y += ((float)random.NextDouble() - 0.5f) * 10;
             
             tile.Move(this);
         }
@@ -46,6 +55,12 @@ namespace CoronaSimulatie.SimulationObjects
         {
             get { return y; }
             set { y = value; }
+        }
+
+        public float Direction
+        {
+            get { return direction; }
+            set { direction = value; }
         }
 
         public virtual Tile Tile
