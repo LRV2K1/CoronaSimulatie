@@ -43,7 +43,7 @@ namespace VisualCoronaSimulatie
 
 
             people = new List<Person>();
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 10000; i++)
             {
                 DrawablePerson p = new DrawablePerson(random.Next(0, 999), random.Next(0, 999), random);
                 people.Add(p);

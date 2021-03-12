@@ -13,7 +13,7 @@ namespace CoronaSimulatie.SimulationObjects
         protected Tile tile;
         protected Random random;
 
-        public Person(int x, int y, Random random)
+        public Person(float x, float y, Random random)
         {
             this.x = x;
             this.y = y;
