@@ -17,11 +17,14 @@ namespace CoronaSimulatie
 
         WorldGrid word;
         List<Person> people;
+        Random random;
 
         public Program()
         {
+            random = new Random();
+
             people = new List<Person>();
-            people.Add(new Person(10, 10));
+            people.Add(new Person(10, 10, random));
 
 
             word = new WorldGrid(100,100,100,100,people);

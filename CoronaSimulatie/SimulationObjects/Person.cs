@@ -11,11 +11,13 @@ namespace CoronaSimulatie.SimulationObjects
         protected float x, y;
 
         protected Tile tile;
+        protected Random random;
 
-        public Person(int x, int y)
+        public Person(int x, int y, Random random)
         {
             this.x = x;
             this.y = y;
+            this.random = random;
         }
 
         public virtual void Move()
@@ -23,9 +25,9 @@ namespace CoronaSimulatie.SimulationObjects
             if (tile == null)
                 return;
 
-            x += 25f;
-            y += 10f;
-
+            x += ((float)random.NextDouble() - 0.5f) * 10;
+            y += ((float)random.NextDouble() - 0.5f) * 10;
+            
             tile.Move(this);
         }
 
@@ -37,11 +39,13 @@ namespace CoronaSimulatie.SimulationObjects
         public float X
         {
             get { return x; }
+            set { x = value; }
         }
 
         public float Y
         {
             get { return y; }
+            set { y = value; }
         }
 
         public virtual Tile Tile

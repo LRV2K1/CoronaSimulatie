@@ -43,9 +43,12 @@ namespace VisualCoronaSimulatie
 
 
             people = new List<Person>();
-            people.Add(new DrawablePerson(10, 10));
-            state.Add((people[0] as DrawablePerson).Visual);
-
+            for (int i = 0; i < 100; i++)
+            {
+                DrawablePerson p = new DrawablePerson(random.Next(0, 999), random.Next(0, 999), random);
+                people.Add(p);
+                state.Add((p as DrawablePerson).Visual);
+            }
             world = new DrawableWorld(10, 10, 100, 100, people);
             foreach(DrawableTile t in world.Tiles)
             {
@@ -59,21 +62,36 @@ namespace VisualCoronaSimulatie
 
         }
 
-        protected override void HandleInput()
-        {
-            base.HandleInput();
+        //protected override void HandleInput()
+        //{
+        //    base.HandleInput();
 
-            if (inputHelper.KeyPressed(Keys.Space))
+        //    if (inputHelper.KeyPressed(Keys.Space))
+        //    {
+        //        foreach (Person p in people)
+        //        {
+        //            p.Move();
+        //        }
+        //        foreach (Person p in people)
+        //        {
+        //            p.Sickness();
+        //        }
+        //    }
+        //}
+
+        protected override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            foreach (Person p in people)
             {
-                foreach (Person p in people)
-                {
-                    p.Move();
-                }
-                foreach (Person p in people)
-                {
-                    p.Sickness();
-                }
+                p.Move();
             }
+            foreach (Person p in people)
+            {
+                p.Sickness();
+            }
+
         }
     }
 }

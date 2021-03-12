@@ -41,12 +41,23 @@ namespace CoronaSimulatie.SimulationObjects
         {
             int ix = (int)(x / (float)tilewidth);
             int iy = (int)(y / (float)tileheight);
+            if ((x / (float)tilewidth) < 0 || (y / (float)tileheight) < 0)
+                return null;
 
             return this[ix, iy];
         }
 
         public void TilePerson(Person p)
         {
+            if (p.X < 0)
+                p.X = 0;
+            if (p.Y < 0)
+                p.Y = 0;
+            if (p.X >= tilewidth * grid.GetLength(0))
+                p.X = (tilewidth * grid.GetLength(0)-1);
+            if (p.Y >= tileheight * grid.GetLength(1))
+                p.Y = (tileheight * grid.GetLength(1)-1);
+
             int x = (int)(p.X / (float)tilewidth);
             int y = (int)(p.Y / (float)tileheight);
 

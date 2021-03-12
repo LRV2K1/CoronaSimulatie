@@ -3,7 +3,7 @@ using Engine.GameManagment.GameObjects;
 using Engine.GameManagment.Assets;
 using Engine.GameManagment;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace VisualCoronaSimulatie.Simulation_Objects
 {
@@ -11,8 +11,8 @@ namespace VisualCoronaSimulatie.Simulation_Objects
     {
         DrawGameObject visual;
 
-        public DrawablePerson(int x, int y)
-            : base(x,y)
+        public DrawablePerson(int x, int y, Random random)
+            : base(x,y, random)
         {
             visual = new DrawGameObject(new SpriteSheet(GameEnvironment.DrawingHelper.GetTexture()), 1);
             visual.Drawable.SpritePart = new Rectangle(0, 0, 20, 20);
