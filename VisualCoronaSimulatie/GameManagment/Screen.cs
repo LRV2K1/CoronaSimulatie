@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Game1.GameManagment
+namespace Engine.GameManagment
 {
     public class Screen
     {

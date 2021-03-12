@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Game1.GameManagment
+namespace Engine.GameManagment
 {
     public class GameSettingsManager
     {

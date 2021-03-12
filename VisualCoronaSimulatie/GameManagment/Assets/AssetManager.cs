@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework;
 
-namespace Game1.GameManagment.Assets
+namespace Engine.GameManagment.Assets
 {
     public struct RenderTexture2D
     {

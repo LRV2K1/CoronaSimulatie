@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Game1.GameManagment
+namespace Engine.GameManagment
 {   
     public enum MouseButton
     {

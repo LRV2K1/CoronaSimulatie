@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Assets = Game1.GameManagment.Assets;
+using Assets = Engine.GameManagment.Assets;
 
-namespace Game1.GameManagment.GameObjects
+namespace Engine.GameManagment.GameObjects
 {
     public class DrawGameObject : GameObject
     {

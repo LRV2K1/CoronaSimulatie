@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Game1.GameManagment.Command
+namespace Engine.GameManagment.Command
 {
     public class TextLine
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.GameManagment.GameObjects;
-using Game1.GameManagment.Assets;
+using Engine.GameManagment.GameObjects;
+using Engine.GameManagment.Assets;
 
-namespace Game1.GameManagment.Command
+namespace Engine.GameManagment.Command
 {
     public class WrittenLines : TextGameObject
     {

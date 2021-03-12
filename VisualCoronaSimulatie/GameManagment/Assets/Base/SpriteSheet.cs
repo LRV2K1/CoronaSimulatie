@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-namespace Game1.GameManagment.Assets
+namespace Engine.GameManagment.Assets
 {
     public class SpriteSheet : Drawable
     {

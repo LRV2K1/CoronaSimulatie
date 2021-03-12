@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Game1.GameManagment.GameObjects
+namespace Engine.GameManagment.GameObjects
 {
     public class GameObjectGrid<T> : GameObject where T : GameObject
     {

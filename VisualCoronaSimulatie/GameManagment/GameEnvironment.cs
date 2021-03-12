@@ -1,11 +1,11 @@
 ﻿using System;
-using Game1.GameManagment.IO;
+using Engine.GameManagment.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.GameManagment.Assets;
-using Game1.GameManagment.Command;
+using Engine.GameManagment.Assets;
+using Engine.GameManagment.Command;
 
-namespace Game1.GameManagment
+namespace Engine.GameManagment
 {
     public class GameEnvironment : Game
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Game1.GameManagment.Assets;
+using Engine.GameManagment.Assets;
 
-namespace Game1.GameManagment.GameObjects
+namespace Engine.GameManagment.GameObjects
 {
     public class MultiDrawGameObject : DrawGameObject
     {

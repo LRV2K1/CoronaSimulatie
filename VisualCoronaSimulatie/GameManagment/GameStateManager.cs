@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Game1.GameManagment.GameObjects;
+using Engine.GameManagment.GameObjects;
 
-namespace Game1.GameManagment
+namespace Engine.GameManagment
 {
     public class GameStateManager : IGameLoopObject
     {

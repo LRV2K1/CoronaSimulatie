@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Game1.GameManagment.GameObjects
+namespace Engine.GameManagment.GameObjects
 {
     public interface IGameLoopObject
     {
