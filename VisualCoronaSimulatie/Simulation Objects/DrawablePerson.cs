@@ -18,7 +18,7 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             visual.Drawable.SpritePart = new Rectangle(0, 0, 20, 20);
             visual.Drawable.Origin = visual.Drawable.Center;
 
-            visual.Drawable.Color = new Color((int)((x / 1000f) * 255), (int)((y / 1000f) * 255), 0);
+            visual.Drawable.Color = new Color((int)((x / 10000f) * 255), (int)((y / 10000f) * 255), 0);
 
             visual.Position2 = new Vector2(x, y);
         }

@@ -45,17 +45,18 @@ namespace VisualCoronaSimulatie
             people = new List<Person>();
             for (int i = 0; i < 10000; i++)
             {
-                DrawablePerson p = new DrawablePerson(random.Next(0, 999), random.Next(0, 999), random);
+                DrawablePerson p = new DrawablePerson(random.Next(0, 9999), random.Next(0, 9999), random);
                 people.Add(p);
                 state.Add((p as DrawablePerson).Visual);
             }
-            world = new DrawableWorld(10, 10, 100, 100, people);
+            world = new DrawableWorld(100, 100, 100, 100, people);
             foreach(DrawableTile t in world.Tiles)
             {
                 state.Add(t.Visual);
             }
 
             state.Position2 = new Vector2(-500, -500);
+            state.Scale = 0.1f;
 
             GameStateManager.AddGameState("start", state);
             GameStateManager.SwitchTo("start");
