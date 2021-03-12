@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CoronaSimulatie.SimulationObjects
 {
-    class WorldGrid
+    public class WorldGrid
     {
-        int tilewidth, tileheight;
+        protected int tilewidth, tileheight;
 
-        Tile[,] grid;
+        protected Tile[,] grid;
 
-        public WorldGrid(int width, int height, int tilewidth, int tileheight, List<Person> poeple)
+        public WorldGrid(int width, int height, int tilewidth, int tileheight, List<Person> people)
         {
             grid = new Tile[width, height];
             this.tilewidth = tilewidth;
@@ -26,7 +26,7 @@ namespace CoronaSimulatie.SimulationObjects
                 }
             }
 
-            foreach(Person p in poeple)
+            foreach(Person p in people)
             {
                 int x = (int)(p.X / (float)tilewidth);
                 int y = (int)(p.Y / (float)tileheight);
@@ -79,6 +79,16 @@ namespace CoronaSimulatie.SimulationObjects
         public int TileHeight
         {
             get { return tileheight; }
+        }
+
+        public int Widht
+        {
+            get { return grid.GetLength(0); }
+        }
+
+        public int Height
+        {
+            get { return grid.GetLength(1); }
         }
     }
 }

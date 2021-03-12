@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CoronaSimulatie.SimulationObjects
 {
-    class Tile
+    public class Tile
     {
-        List<Person> passengers;
+        protected List<Person> passengers;
 
-        int x, y;
-        WorldGrid world;
+        protected int x, y;
+        protected WorldGrid world;
 
         public Tile(int x, int y, WorldGrid world)
         {

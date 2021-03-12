@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +13,8 @@
     <AssemblyName>VisualCoronaSimulatie</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -62,7 +63,6 @@
     <Compile Include="GameManagment\GameObjects\GameObjectGrid.cs" />
     <Compile Include="GameManagment\GameObjects\GameObjectList.cs" />
     <Compile Include="GameManagment\GameObjects\IGameLoopObject.cs" />
-    <Compile Include="GameManagment\GameObjects\MultiDrawGameObject.cs" />
     <Compile Include="GameManagment\GameObjects\SpriteGameObject.cs" />
     <Compile Include="GameManagment\GameObjects\TextGameObject.cs" />
     <Compile Include="GameManagment\GameSettingsManager.cs" />
@@ -73,7 +73,9 @@
     <Compile Include="GameManagment\IO\FileManager.cs" />
     <Compile Include="GameManagment\Screen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Simulation Objects\Tile.cs" />
+    <Compile Include="Simulation Objects\DrawablePerson.cs" />
+    <Compile Include="Simulation Objects\DrawableTile.cs" />
+    <Compile Include="Simulation Objects\DrawableWorld.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -87,8 +89,16 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="app.config" />
     <None Include="app.manifest" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CoronaSimulatie\CoronaSimulatie.csproj">
+      <Project>{ad535528-eeb6-45ab-8063-44288be4f7fe}</Project>
+      <Name>CoronaSimulatie</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

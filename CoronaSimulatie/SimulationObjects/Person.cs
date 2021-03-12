@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace CoronaSimulatie.SimulationObjects
 {
-    class Person
+    public class Person
     {
-        float x, y;
+        protected float x, y;
 
-        Tile tile;
+        protected Tile tile;
 
         public Person(int x, int y)
         {
@@ -18,22 +18,21 @@ namespace CoronaSimulatie.SimulationObjects
             this.y = y;
         }
 
-        public void Move()
+        public virtual void Move()
         {
             if (tile == null)
                 return;
 
-            tile.Move(this);
             x += 25f;
             y += 10f;
+
+            tile.Move(this);
         }
 
         public void Sickness()
         {
 
         }
-
-
 
         public float X
         {
@@ -45,7 +44,7 @@ namespace CoronaSimulatie.SimulationObjects
             get { return y; }
         }
 
-        public Tile Tile
+        public virtual Tile Tile
         {
             get { return tile; }
             set { 

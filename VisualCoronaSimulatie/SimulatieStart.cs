@@ -8,6 +8,8 @@ using Engine.GameManagment.IO;
 using Engine.GameManagment.Assets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using VisualCoronaSimulatie.Simulation_Objects;
+using CoronaSimulatie.SimulationObjects;
 
 namespace VisualCoronaSimulatie
 {
@@ -27,6 +29,9 @@ namespace VisualCoronaSimulatie
             Content.RootDirectory = "Content";
         }
 
+        DrawableWorld world;
+        List<Person> people;
+
         protected override void LoadContent()
         {
             base.LoadContent();
@@ -35,44 +40,41 @@ namespace VisualCoronaSimulatie
             Screen.Background = Color.Blue;
             Screen.WindowSize = new Point(1600, 900);
 
-            //SpriteSheet sprite = new SpriteSheet(drawingHelper.GetTexture());
-            //sprite.Color = Color.Red;
-            //sprite.SpritePart = new Rectangle(0, 0, 400, 400);
-            //sprite.Origin = sprite.Center;
-            //DrawGameObject draw = new DrawGameObject(sprite);
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
 
-            SpriteSheet blackTile = new SpriteSheet(drawingHelper.GetTexture());
-            blackTile.Color = Color.Black;
-            blackTile.SpritePart = new Rectangle(0, 0, 50, 50);
-            blackTile.Origin = blackTile.Center;
-            SpriteSheet whiteTile = new SpriteSheet(drawingHelper.GetTexture());
-            whiteTile.Color = Color.White;
-            whiteTile.SpritePart = new Rectangle(0, 0, 50, 50);
-            whiteTile.Origin = whiteTile.Center;
 
-            GameObjectGrid<GameObject> grid = new GameObjectGrid<GameObject>(16, 16);
-            grid.CellSize = new Point(50, 50);
-            grid.Position2 = new Vector2(-(grid.CellWidth * (grid.Columns-1)) / 2, -(grid.CellHeight * (grid.Rows-1)) / 2);
-            for (int x = 0; x < grid.Columns; x++)
+            people = new List<Person>();
+            people.Add(new DrawablePerson(10, 10));
+            state.Add((people[0] as DrawablePerson).Visual);
+
+            world = new DrawableWorld(10, 10, 100, 100, people);
+            foreach(DrawableTile t in world.Tiles)
             {
-                for (int y = 0; y < grid.Rows; y++)
-                {
-                    if ((x + y) % 2 == 0)
-                        grid.Add(new DrawGameObject(whiteTile), x, y);
-                    else
-                        grid.Add(new DrawGameObject(blackTile), x, y);
-                }
+                state.Add(t.Visual);
             }
 
-            state.Add(grid);
-            //state.Add(draw);
+            state.Position2 = new Vector2(-500, -500);
 
             GameStateManager.AddGameState("start", state);
             GameStateManager.SwitchTo("start");
 
         }
 
+        protected override void HandleInput()
+        {
+            base.HandleInput();
 
+            if (inputHelper.KeyPressed(Keys.Space))
+            {
+                foreach (Person p in people)
+                {
+                    p.Move();
+                }
+                foreach (Person p in people)
+                {
+                    p.Sickness();
+                }
+            }
+        }
     }
 }
