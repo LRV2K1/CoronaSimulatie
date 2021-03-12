@@ -35,12 +35,14 @@ namespace VisualCoronaSimulatie
         int frame;
         float time;
 
+        TextGameObject healhy, ill, recovered;
+
         protected override void LoadContent()
         {
             base.LoadContent();
 
             IsMouseVisible = true;
-            Screen.Background = Color.Blue;
+            Screen.Background = Color.Black;
             Screen.WindowSize = new Point(1600, 900);
 
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
@@ -48,27 +50,48 @@ namespace VisualCoronaSimulatie
 
 
             people = new List<Person>();
-            for (int i = 0; i < 10000; i++)
+            SaveData.Healthy = 500;
+            for (int i = 0; i < 500; i++)
             {
-                DrawablePerson p = new DrawablePerson(random.Next(0, 9999), random.Next(0, 9999), random);
+                DrawablePerson p = new DrawablePerson(random.Next(0, 149), random.Next(0, 149), random);
                 people.Add(p);
                 simulatie.Add((p as DrawablePerson).Visual);
             }
-            world = new DrawableWorld(100, 100, 100, 100, people);
+            world = new DrawableWorld(10, 10, 15, 15, people);
             foreach(DrawableTile t in world.Tiles)
             {
                 simulatie.Add(t.Visual);
             }
+            for (int i = 0; i < 1; i++)
+            {
+                people[i].Status = HeathStatus.Ill;
+            }
 
             simulatie.Position2 = new Vector2(-500, -500);
-            simulatie.Scale = 0.1f;
+            simulatie.Scale = 6.5f;
 
 
             frames = new TextGameObject("Hud", 2);
             frames.TextFont.Text = "start";
             frames.Position2 = new Vector2(-960, 500);
 
+            healhy = new TextGameObject("Hud", 2);
+            healhy.TextFont.Text = 0.ToString();
+            healhy.Position2 = new Vector2(-960, 450);
+            healhy.TextFont.Color = Color.LightGreen;
+            ill = new TextGameObject("Hud", 2);
+            ill.TextFont.Text = 0.ToString();
+            ill.Position2 = new Vector2(-960, 400);
+            ill.TextFont.Color = Color.Red;
+            recovered = new TextGameObject("Hud", 2);
+            recovered.TextFont.Text = 0.ToString();
+            recovered.Position2 = new Vector2(-960, 350);
+            recovered.TextFont.Color = Color.Gray;
+
             state.Add(frames);
+            state.Add(healhy);
+            state.Add(ill);
+            state.Add(recovered);
             state.Add(simulatie);
             GameStateManager.AddGameState("start", state);
             GameStateManager.SwitchTo("start");
@@ -103,6 +126,10 @@ namespace VisualCoronaSimulatie
             {
                 p.Sickness();
             }
+
+            healhy.TextFont.Text = SaveData.Healthy.ToString();
+            ill.TextFont.Text = SaveData.Ill.ToString();
+            recovered.TextFont.Text = SaveData.Recovered.ToString();
 
         }
 
