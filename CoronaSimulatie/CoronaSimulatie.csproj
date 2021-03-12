@@ -45,6 +45,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationObjects\Person.cs" />
+    <Compile Include="SimulationObjects\Tile.cs" />
+    <Compile Include="SimulationObjects\WorldGrid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

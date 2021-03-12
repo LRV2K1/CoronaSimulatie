@@ -73,6 +73,7 @@
     <Compile Include="GameManagment\IO\FileManager.cs" />
     <Compile Include="GameManagment\Screen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simulation Objects\Tile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
