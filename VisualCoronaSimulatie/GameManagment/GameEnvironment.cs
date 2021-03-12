@@ -1,5 +1,5 @@
 ﻿using System;
-using Engine.GameManagment.IO;
+//using Engine.GameManagment.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Engine.GameManagment.Assets;
@@ -18,7 +18,6 @@ namespace Engine.GameManagment
         protected static GameStateManager gameStateManager;
         protected static CommandManager commandManager;
         protected static DrawingHelper drawingHelper;
-        protected static FileManager fileManager;
 
         static bool quitGame;
         static Screen screen;
@@ -32,7 +31,6 @@ namespace Engine.GameManagment
             drawingHelper = new DrawingHelper();
             screen = new Screen(graphics);
             commandManager = new CommandManager();
-            fileManager = new FileManager();
 
             random = new Random();
 
@@ -58,7 +56,6 @@ namespace Engine.GameManagment
             assetManager.Unload();
             gameStateManager.UnLoad();
             gameStateManager.Clear();
-            fileManager.UnLoad();
         }
 
         protected virtual void HandleInput()
@@ -130,7 +127,7 @@ namespace Engine.GameManagment
         /// <summary>
         /// The drawinghelper.
         /// </summary>
-        public static DrawingHelper DrawingHelper
+        public static DrawingHelper DrawingHelper 
         {
             get { return drawingHelper; }
         }
@@ -141,14 +138,6 @@ namespace Engine.GameManagment
         public static Screen Screen
         {
             get { return screen; }
-        }
-
-        /// <summary>
-        /// The filemanager.
-        /// </summary>
-        public static FileManager FileManager
-        {
-            get { return fileManager; }
         }
 
         /// <summary>

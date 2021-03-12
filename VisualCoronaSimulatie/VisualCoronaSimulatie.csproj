@@ -67,9 +67,6 @@
     <Compile Include="GameManagment\GameObjects\TextGameObject.cs" />
     <Compile Include="GameManagment\GameStateManager.cs" />
     <Compile Include="GameManagment\InputHelper.cs" />
-    <Compile Include="GameManagment\IO\File.cs" />
-    <Compile Include="GameManagment\IO\FileCommand.cs" />
-    <Compile Include="GameManagment\IO\FileManager.cs" />
     <Compile Include="GameManagment\Screen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Simulation Objects\DrawablePerson.cs" />
