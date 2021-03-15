@@ -73,7 +73,7 @@ namespace VisualCoronaSimulatie
             dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
 
             simulatie.Position2 = new Vector2(-500, -500);
-            simulatie.Scale = (float)Globals.worldsize/90f;
+            simulatie.Scale = 1000f/ (float)Globals.worldsize;
 
             //simulation data
             frames = new TextGameObject("Hud", 2);

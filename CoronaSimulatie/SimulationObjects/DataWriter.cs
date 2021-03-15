@@ -40,7 +40,7 @@ namespace CoronaSimulatie.SimulationObjects
 
         ~DataWriter()
         {
-            workbook.SaveAs("D:\\Users\\Lourens\\OneDrive\\Desktop\\test.xls", XlFileFormat.xlWorkbookDefault);
+            workbook.SaveAs("D:\\Users\\Lourens\\OneDrive\\Desktop\\test.xlsx", XlFileFormat.xlWorkbookDefault);
             workbook.Close();
             file.Quit();
         }
