@@ -23,9 +23,16 @@ namespace CoronaSimulatie.SimulationObjects
             workbook = file.Workbooks.Add("");
             worksheet = workbook.ActiveSheet;
 
-            worksheet.Cells[1, 1] = "healthy";
-            worksheet.Cells[1, 2] = "infected";
-            worksheet.Cells[1, 3] = "recovered";
+            worksheet.Cells[1, 1] = "Healthy";
+            worksheet.Cells[1, 2] = "Infected";
+            worksheet.Cells[1, 3] = "Recovered";
+
+            worksheet.Cells[1, 5] = "Total Population";
+            worksheet.Cells[1, 6] = "Start Infected Population";
+            worksheet.Cells[1, 7] = "World Size";
+            worksheet.Cells[2, 5] = Globals.totalpopulation;
+            worksheet.Cells[2, 6] = Globals.illpopulation;
+            worksheet.Cells[2, 7] = Globals.worldsize;
 
             column = 2;
         }
