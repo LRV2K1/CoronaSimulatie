@@ -55,14 +55,8 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
 
             //close to the target.
-            if (Math.Abs(tx-x) < 1.5f && Math.Abs(ty-y) < 1.5f)
-            {
-                //choose new target.
-                direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
-                float distance = (float)random.NextDouble() * 100;
-                tx = x + (float)(distance * Math.Cos(direction));
-                ty = y + (float)(distance * Math.Sin(direction));
-            }
+            if (Math.Abs(tx - x) < 1.0f && Math.Abs(ty - y) < 1.0f)
+                GetTarget();
 
             //direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
             //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
@@ -75,6 +69,16 @@ namespace CoronaSimulatie.SimulationObjects
             //y += ((float)random.NextDouble() - 0.5f) * 1;
 
             tile.Move(this);
+        }
+
+        private void GetTarget()
+        {
+            direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
+            float distance = (float)random.NextDouble() * 100;
+            tx = x + (float)(distance * Math.Cos(direction));
+            ty = y + (float)(distance * Math.Sin(direction));
+            if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
+                GetTarget();
         }
 
         public void Sickness()
