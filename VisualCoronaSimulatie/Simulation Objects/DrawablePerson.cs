@@ -52,25 +52,44 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             get { return visual; }
         }
 
-        public override HeathStatus Status
+        public override HealthStatus HealthStatus
         {
-            get { return base.Status; }
+            get { return base.HealthStatus; }
             set
             {
-                base.Status = value;
-                switch (value)
-                {
-                    case HeathStatus.Healthy:
-                        visual.Drawable.Color = Color.LightGreen;
-                        break;
-                    case HeathStatus.Ill:
-                        visual.Drawable.Color = Color.Red;
-                        break;
-                    case HeathStatus.Recovered:
-                        visual.Drawable.Color = Color.Gray;
-                        break;
-                }
+                base.HealthStatus = value;
+                visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
             }
+        }
+
+        public override QuarentineStatus QuarentineStatus
+        {
+            get { return base.QuarentineStatus; }
+            set 
+            { 
+                base.QuarentineStatus = value;
+                visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
+            }
+        }
+
+        private Color GetHeathColor(HealthStatus health, QuarentineStatus quarentine)
+        {
+            if (quarentine == QuarentineStatus.Quarentined)
+            {
+                return Color.Black;
+            }
+
+            switch (health)
+            {
+                case HealthStatus.Healthy:
+                    return Color.LightGreen;
+                case HealthStatus.Ill:
+                    return Color.Red;
+                case HealthStatus.Recovered:
+                    return Color.Gray;
+            }
+
+            return Color.White;
         }
     }
 }

@@ -41,9 +41,9 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void UpdateStatus(Person p)
         {
-            if (p.Status == HeathStatus.Ill)
+            if (p.HealthStatus == HealthStatus.Ill)
                 illpassengers.Add(p);
-            if (p.Status == HeathStatus.Recovered)
+            if (p.HealthStatus == HealthStatus.Recovered)
                 illpassengers.Remove(p);
         }
 

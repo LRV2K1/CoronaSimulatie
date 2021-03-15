@@ -6,11 +6,17 @@ using System.Threading.Tasks;
 
 namespace CoronaSimulatie.SimulationObjects
 {
-    public enum HeathStatus
+    public enum HealthStatus
     {
         Healthy,
         Ill,
         Recovered
+    }
+
+    public enum QuarentineStatus
+    {
+        Free,
+        Quarentined
     }
 
     public class Person
@@ -22,8 +28,10 @@ namespace CoronaSimulatie.SimulationObjects
 
         float direction;
         int sicksteps;
+        int quarentineDays;
 
-        HeathStatus status;
+        HealthStatus healthStatus;
+        QuarentineStatus quarentineStatus;
 
         public Person(float x, float y, Random random)
         {
@@ -31,7 +39,9 @@ namespace CoronaSimulatie.SimulationObjects
             this.y = y;
             this.random = random;
             sicksteps = 0;
-            status = HeathStatus.Healthy;
+            quarentineDays = 0;
+            healthStatus = HealthStatus.Healthy;
+            quarentineStatus = QuarentineStatus.Free;
         }
 
         public virtual void Move()
@@ -54,27 +64,36 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void Sickness()
         {
-            if (status == HeathStatus.Recovered)
+            if (healthStatus == HealthStatus.Recovered)
                 return;
-            if (status == HeathStatus.Healthy)
+            if (healthStatus == HealthStatus.Healthy)
             {
-                List<List<Person>> neighbours = tile.IllNeighbours();
-
-                foreach (List<Person> l in neighbours)
+                if (quarentineStatus == QuarentineStatus.Free)
                 {
-                    foreach (Person p in l)
+                    List<List<Person>> neighbours = tile.IllNeighbours();
+
+                    foreach (List<Person> l in neighbours)
                     {
-                        if (p.Status == HeathStatus.Ill)
+                        foreach (Person p in l)
                         {
-                            float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
-                            int c = random.Next(0, 100);
-                            if (c == 0 && distance < 225)
+                            if (p.HealthStatus == HealthStatus.Ill && p.quarentineStatus == QuarentineStatus.Free)
                             {
-                                Status = HeathStatus.Ill;
-                                return;
+                                float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
+                                int c = random.Next(0, 100);
+                                if (c == 0 && distance < 225)
+                                {
+                                    HealthStatus = HealthStatus.Ill;
+                                    return;
+                                }
                             }
                         }
                     }
+                }
+                else
+                {
+                    quarentineDays++;
+                    if (quarentineDays > 120)
+                        QuarentineStatus = QuarentineStatus.Free;
                 }
             }
             else
@@ -82,7 +101,12 @@ namespace CoronaSimulatie.SimulationObjects
                 sicksteps++;
                 int days = random.Next(20, 220);
                 if (sicksteps >= days)
-                    Status = HeathStatus.Recovered;
+                {
+                    HealthStatus = HealthStatus.Recovered;
+                    QuarentineStatus = QuarentineStatus.Free;
+                }
+                else if (sicksteps >= 30)
+                    QuarentineStatus = QuarentineStatus.Quarentined;
             }
         }
 
@@ -110,34 +134,34 @@ namespace CoronaSimulatie.SimulationObjects
             set { tile = value; }
         }
 
-        public virtual HeathStatus Status
+        public virtual HealthStatus HealthStatus
         {
-            get { return status; }
+            get { return healthStatus; }
             set {
-                switch (status)
+                switch (healthStatus)
                 {
-                    case HeathStatus.Healthy:
+                    case HealthStatus.Healthy:
                         SaveData.Healthy--;
                         break;
-                    case HeathStatus.Ill:
+                    case HealthStatus.Ill:
                         SaveData.Ill--;
                         break;
-                    case HeathStatus.Recovered:
+                    case HealthStatus.Recovered:
                         SaveData.Recovered--;
                         break;
                 }
 
-                status = value;
+                healthStatus = value;
 
-                switch (status)
+                switch (healthStatus)
                 {
-                    case HeathStatus.Healthy:
+                    case HealthStatus.Healthy:
                         SaveData.Healthy++;
                         break;
-                    case HeathStatus.Ill:
+                    case HealthStatus.Ill:
                         SaveData.Ill++;
                         break;
-                    case HeathStatus.Recovered:
+                    case HealthStatus.Recovered:
                         SaveData.Recovered++;
                         break;
                 }
@@ -145,6 +169,12 @@ namespace CoronaSimulatie.SimulationObjects
 
                 tile.UpdateStatus(this);
             }
+        }
+
+        public virtual QuarentineStatus QuarentineStatus
+        {
+            get { return quarentineStatus; }
+            set { quarentineStatus = value; }
         }
     }
 }
