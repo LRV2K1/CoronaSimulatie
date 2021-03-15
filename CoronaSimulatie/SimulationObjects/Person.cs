@@ -32,6 +32,7 @@ namespace CoronaSimulatie.SimulationObjects
         float direction;
         int sicksteps;
         int quarentineDays;
+        int waittimer;
 
         HealthStatus healthStatus;
         QuarentineStatus quarentineStatus;
@@ -58,6 +59,12 @@ namespace CoronaSimulatie.SimulationObjects
             if (Math.Abs(tx - x) < 1.0f && Math.Abs(ty - y) < 1.0f)
                 GetTarget();
 
+            if (waittimer > 0)
+            {
+                waittimer--;
+                return;
+            }
+
             //direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
             //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
 
@@ -77,6 +84,7 @@ namespace CoronaSimulatie.SimulationObjects
             float distance = (float)random.NextDouble() * 100;
             tx = x + (float)(distance * Math.Cos(direction));
             ty = y + (float)(distance * Math.Sin(direction));
+            waittimer = random.Next(0, 120);
             if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
                 GetTarget();
         }
