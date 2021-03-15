@@ -21,7 +21,7 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             //visual.Drawable.Color = new Color((int)((x / 10000f) * 255), (int)((y / 10000f) * 255), 0);
 
             visual.Position2 = new Vector2(x, y);
-            visual.Drawable.Color = Color.LightGreen;
+            visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
         }
 
         public override void Move()
@@ -29,22 +29,6 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             base.Move();
 
             visual.Position2 = new Vector2(x, y);
-        }
-
-        public override Tile Tile
-        {
-            get { return tile; }
-            set
-            {
-                tile = value;
-                //if (tile != null)
-                //{
-                //    if ((tile.X + tile.Y) % 2 == 0)
-                //        visual.Drawable.Color = Color.Red;
-                //    else
-                //        visual.Drawable.Color = Color.Blue;
-                //}
-            }
         }
 
         public DrawGameObject Visual

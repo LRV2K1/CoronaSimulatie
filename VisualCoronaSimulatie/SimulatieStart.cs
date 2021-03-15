@@ -50,27 +50,27 @@ namespace VisualCoronaSimulatie
 
 
             people = new List<Person>();
-            SaveData.Healthy = 1000;
-            for (int i = 0; i < 1000; i++)
+            SaveData.Healthy = Globals.totalpopulation;
+            for (int i = 0; i < Globals.totalpopulation; i++)
             {
-                DrawablePerson p = new DrawablePerson(random.Next(0, 299), random.Next(0, 299), random);
+                DrawablePerson p = new DrawablePerson(random.Next(0, Globals.worldsize), random.Next(0, Globals.worldsize), random);
                 people.Add(p);
                 simulatie.Add((p as DrawablePerson).Visual);
             }
-            world = new DrawableWorld(20, 20, 15, 15, people);
+            world = new DrawableWorld(Globals.gridsize, Globals.gridsize, Globals.tilesize, Globals.tilesize, people);
             foreach(DrawableTile t in world.Tiles)
             {
                 simulatie.Add(t.Visual);
             }
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Globals.illpopulation; i++)
             {
                 people[i].HealthStatus = HealthStatus.Ill;
             }
 
             simulatie.Position2 = new Vector2(-500, -500);
-            simulatie.Scale = 3.25f;
+            simulatie.Scale = (float)Globals.worldsize/90f;
 
-
+            //simulation data
             frames = new TextGameObject("Hud", 2);
             frames.TextFont.Text = "start";
             frames.Position2 = new Vector2(-960, 500);

@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimulationObjects\Globals.cs" />
     <Compile Include="SimulationObjects\NormalDistributionHelper.cs" />
     <Compile Include="SimulationObjects\Person.cs" />
     <Compile Include="SimulationObjects\SaveData.cs" />

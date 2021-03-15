@@ -21,7 +21,10 @@ namespace CoronaSimulatie.SimulationObjects
 
     public class Person
     {
+        //position
         protected float x, y;
+        //target position
+        float tx, ty;
 
         protected Tile tile;
         protected Random random;
@@ -37,6 +40,8 @@ namespace CoronaSimulatie.SimulationObjects
         {
             this.x = x;
             this.y = y;
+            tx = x;
+            ty = y;
             this.random = random;
             sicksteps = 0;
             quarentineDays = 0;
@@ -49,11 +54,21 @@ namespace CoronaSimulatie.SimulationObjects
             if (tile == null)
                 return;
 
-            direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
-            float distance = (float)random.NextDouble() * 1f;
+            //close to the target.
+            if (Math.Abs(tx-x) < 1.5f && Math.Abs(ty-y) < 1.5f)
+            {
+                //choose new target.
+                direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
+                float distance = (float)random.NextDouble() * 100;
+                tx = x + (float)(distance * Math.Cos(direction));
+                ty = y + (float)(distance * Math.Sin(direction));
+            }
 
-            x += (float)(distance * Math.Cos(direction));
-            y += (float)(distance * Math.Sin(direction));
+            //direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
+            //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
+
+            x += (float)(3000f * Globals.timestep * Math.Cos(direction));
+            y += (float)(3000f * Globals.timestep * Math.Sin(direction));
 
 
             //x += ((float)random.NextDouble() - 0.5f) * 1;
@@ -93,7 +108,10 @@ namespace CoronaSimulatie.SimulationObjects
                 {
                     quarentineDays++;
                     if (quarentineDays > 120)
+                    {
                         QuarentineStatus = QuarentineStatus.Free;
+                        quarentineDays = 0;
+                    }
                 }
             }
             else
