@@ -116,14 +116,16 @@ namespace VisualCoronaSimulatie
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            foreach (Person p in people)
+            for (int i = 0; i < 1; i++)
             {
-                p.Move();
-            }
-            foreach (Person p in people)
-            {
-                p.Sickness();
+                foreach (Person p in people)
+                {
+                    p.Move();
+                }
+                foreach (Person p in people)
+                {
+                    p.Sickness();
+                }
             }
 
             healhy.TextFont.Text = SaveData.Healthy.ToString();
