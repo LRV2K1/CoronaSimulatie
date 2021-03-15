@@ -8,19 +8,18 @@ namespace CoronaSimulatie.SimulationObjects
 {
     public class WorldGrid
     {
-        protected int tilewidth, tileheight;
+        protected int tilesize;
 
         protected Tile[,] grid;
 
-        public WorldGrid(int width, int height, int tilewidth, int tileheight, List<Person> people)
+        public WorldGrid(int gridsize, int tilesize, List<Person> people)
         {
-            grid = new Tile[width, height];
-            this.tilewidth = tilewidth;
-            this.tileheight = tileheight;
+            grid = new Tile[gridsize, gridsize];
+            this.tilesize = tilesize;
 
-            for(int x = 0; x < width; x++)
+            for(int x = 0; x < gridsize; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < gridsize; y++)
                 {
                     grid[x, y] = new Tile(x,y,this);
                 }
@@ -28,8 +27,8 @@ namespace CoronaSimulatie.SimulationObjects
 
             foreach(Person p in people)
             {
-                int x = (int)(p.X / (float)tilewidth);
-                int y = (int)(p.Y / (float)tileheight);
+                int x = (int)(p.X / (float)this.tilesize);
+                int y = (int)(p.Y / (float)tilesize);
 
                 p.Tile = this[x, y];
                 if (this[x,y] != null)
@@ -39,9 +38,9 @@ namespace CoronaSimulatie.SimulationObjects
 
         public Tile GetTile(float x, float y)
         {
-            int ix = (int)(x / (float)tilewidth);
-            int iy = (int)(y / (float)tileheight);
-            if ((x / (float)tilewidth) < 0 || (y / (float)tileheight) < 0)
+            int ix = (int)(x / (float)tilesize);
+            int iy = (int)(y / (float)tilesize);
+            if ((x / (float)tilesize) < 0 || (y / (float)tilesize) < 0)
                 return null;
 
             return this[ix, iy];
@@ -59,19 +58,19 @@ namespace CoronaSimulatie.SimulationObjects
                 p.Y = 0;
                 p.Direction -= (float)Math.PI;
             }
-            if (p.X >= tilewidth * grid.GetLength(0))
+            if (p.X >= tilesize * grid.GetLength(0))
             {
-                p.X = (tilewidth * grid.GetLength(0) - 1);
+                p.X = (tilesize * grid.GetLength(0) - 1);
                 p.Direction -= (float)Math.PI;
             }
-            if (p.Y >= tileheight * grid.GetLength(1))
+            if (p.Y >= tilesize * grid.GetLength(1))
             {
-                p.Y = (tileheight * grid.GetLength(1) - 1);
+                p.Y = (tilesize * grid.GetLength(1) - 1);
                 p.Direction -= (float)Math.PI;
             }
 
-            int x = (int)(p.X / (float)tilewidth);
-            int y = (int)(p.Y / (float)tileheight);
+            int x = (int)(p.X / (float)tilesize);
+            int y = (int)(p.Y / (float)tilesize);
 
             p.Tile = this[x, y];
             if (this[x, y] != null)
@@ -94,14 +93,9 @@ namespace CoronaSimulatie.SimulationObjects
             }
         }
 
-        public int TileWidht
+        public int TileSize
         {
-            get { return tilewidth; }
-        }
-
-        public int TileHeight
-        {
-            get { return tileheight; }
+            get { return tilesize; }
         }
 
         public int Widht

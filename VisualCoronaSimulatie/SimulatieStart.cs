@@ -48,7 +48,6 @@ namespace VisualCoronaSimulatie
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
             GameObjectList<GameObject> simulatie = new GameObjectList<GameObject>();
 
-
             people = new List<Person>();
             SaveData.Healthy = Globals.totalpopulation;
             for (int i = 0; i < Globals.totalpopulation; i++)
@@ -57,7 +56,7 @@ namespace VisualCoronaSimulatie
                 people.Add(p);
                 simulatie.Add((p as DrawablePerson).Visual);
             }
-            world = new DrawableWorld(Globals.gridsize, Globals.gridsize, Globals.tilesize, Globals.tilesize, people);
+            world = new DrawableWorld(Globals.gridsize, Globals.tilesize, people);
             foreach(DrawableTile t in world.Tiles)
             {
                 simulatie.Add(t.Visual);

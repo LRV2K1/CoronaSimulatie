@@ -15,10 +15,10 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             : base(x, y, world)
         {
             visual = new DrawGameObject(new SpriteSheet(GameEnvironment.DrawingHelper.GetTexture()));
-            visual.Drawable.SpritePart = new Rectangle(0, 0, world.TileWidht, world.TileHeight);
-            visual.Drawable.Origin = new Vector2(0, world.TileHeight);
+            visual.Drawable.SpritePart = new Rectangle(0, 0, world.TileSize, world.TileSize);
+            visual.Drawable.Origin = new Vector2(0, world.TileSize);
 
-            visual.Position2 = new Vector2(x * world.TileWidht, Y * world.TileHeight);
+            visual.Position2 = new Vector2(x * world.TileSize, Y * world.TileSize);
             //if ((x + y) % 2 == 0)
             //    visual.Drawable.Color = Color.Black;
             //else

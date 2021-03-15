@@ -16,14 +16,14 @@ namespace VisualCoronaSimulatie.Simulation_Objects
     {
         List<DrawableTile> tiles;
 
-        public DrawableWorld(int width, int height, int tilewidth, int tileheight, List<Person> people)
-            : base(width, height, tileheight, tileheight, people)
+        public DrawableWorld(int gridsize, int tilesize, List<Person> people)
+            : base(gridsize, tilesize, people)
         {
             tiles = new List<DrawableTile>();
 
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < gridsize; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < gridsize; y++)
                 {
                     DrawableTile t = new DrawableTile(x, y, this);
                     grid[x, y] = t;
@@ -33,8 +33,8 @@ namespace VisualCoronaSimulatie.Simulation_Objects
 
             foreach (Person p in people)
             {
-                int x = (int)(p.X / (float)tilewidth);
-                int y = (int)(p.Y / (float)tileheight);
+                int x = (int)(p.X / (float)tilesize);
+                int y = (int)(p.Y / (float)tilesize);
 
                 p.Tile = this[x, y];
                 if (this[x, y] != null)

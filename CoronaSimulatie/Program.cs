@@ -27,7 +27,7 @@ namespace CoronaSimulatie
             people.Add(new Person(10, 10, random));
 
 
-            word = new WorldGrid(100,100,100,100,people);
+            word = new WorldGrid(Globals.gridsize,Globals.tilesize,people);
         }
 
         public void Run()
