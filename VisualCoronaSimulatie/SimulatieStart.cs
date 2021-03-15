@@ -38,6 +38,8 @@ namespace VisualCoronaSimulatie
         float time;
 
         TextGameObject healhy, ill, recovered;
+        int step;
+        TextGameObject steps;
 
         protected override void LoadContent()
         {
@@ -93,10 +95,16 @@ namespace VisualCoronaSimulatie
             recovered.Position2 = new Vector2(-960, 350);
             recovered.TextFont.Color = Color.Gray;
 
+            step = 0;
+            steps = new TextGameObject("Hud", 2);
+            steps.TextFont.Text = step.ToString();
+            steps.Position2 = new Vector2(-960, 300);
+
             state.Add(frames);
             state.Add(healhy);
             state.Add(ill);
             state.Add(recovered);
+            state.Add(steps);
             state.Add(simulatie);
             GameStateManager.AddGameState("start", state);
             GameStateManager.SwitchTo("start");
@@ -126,6 +134,7 @@ namespace VisualCoronaSimulatie
             {
                 for (int i = 0; i < 1; i++)
                 {
+                    step++;
                     foreach (Person p in people)
                     {
                         p.Move();
@@ -137,16 +146,18 @@ namespace VisualCoronaSimulatie
 
                     dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
                 }
-
-                healhy.TextFont.Text = SaveData.Healthy.ToString();
-                ill.TextFont.Text = SaveData.Ill.ToString();
-                recovered.TextFont.Text = SaveData.Recovered.ToString();
             }
 
         }
 
         protected override void Draw(GameTime gameTime)
         {
+            healhy.TextFont.Text = SaveData.Healthy.ToString();
+            ill.TextFont.Text = SaveData.Ill.ToString();
+            recovered.TextFont.Text = SaveData.Recovered.ToString();
+
+            steps.TextFont.Text = ((float)step * Globals.timestep).ToString();
+
             time += (float)gameTime.ElapsedGameTime.TotalSeconds;
             frame++;
             if (time >= 1f)

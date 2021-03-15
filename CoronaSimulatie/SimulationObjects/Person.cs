@@ -31,7 +31,7 @@ namespace CoronaSimulatie.SimulationObjects
 
         float direction;
         int sicksteps;
-        int quarentineDays;
+        int quarentinesteps;
         int waittimer;
 
         HealthStatus healthStatus;
@@ -45,7 +45,7 @@ namespace CoronaSimulatie.SimulationObjects
             ty = y;
             this.random = random;
             sicksteps = 0;
-            quarentineDays = 0;
+            quarentinesteps = 0;
             healthStatus = HealthStatus.Healthy;
             quarentineStatus = QuarentineStatus.Free;
         }
@@ -68,6 +68,7 @@ namespace CoronaSimulatie.SimulationObjects
             //direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
             //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
 
+            //average speed 3 km/h
             x += (float)(3000f * Globals.timestep * Math.Cos(direction));
             y += (float)(3000f * Globals.timestep * Math.Sin(direction));
 
@@ -78,15 +79,16 @@ namespace CoronaSimulatie.SimulationObjects
             tile.Move(this);
         }
 
-        private void GetTarget()
+        public void GetTarget()
         {
             direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
             float distance = (float)random.NextDouble() * 100;
             tx = x + (float)(distance * Math.Cos(direction));
             ty = y + (float)(distance * Math.Sin(direction));
-            waittimer = random.Next(0, 120);
-            if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
-                GetTarget();
+            waittimer = random.Next(0, (int)(1f/Globals.timestep)); //wait between 0 to 1 hour.
+            //if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
+            //    //GetTarget();
+            //    return;
         }
 
         public void Sickness()
@@ -106,7 +108,7 @@ namespace CoronaSimulatie.SimulationObjects
                             if (p.HealthStatus == HealthStatus.Ill && p.quarentineStatus == QuarentineStatus.Free)
                             {
                                 float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
-                                int c = random.Next(0, 100);
+                                int c = random.Next(0, (int)(0.5f/Globals.timestep));   // staying close to someone roughly 0.5 hours to get sick.
                                 if (c == 0 && distance < 225)
                                 {
                                     HealthStatus = HealthStatus.Ill;
@@ -118,24 +120,24 @@ namespace CoronaSimulatie.SimulationObjects
                 }
                 else
                 {
-                    quarentineDays++;
-                    if (quarentineDays > 120)
+                    quarentinesteps++;
+                    if (quarentinesteps > 336f/Globals.timestep) //come out of quarentine after 14 days, 14 days * 24 hours = 336 timesteps
                     {
                         QuarentineStatus = QuarentineStatus.Free;
-                        quarentineDays = 0;
+                        quarentinesteps = 0;
                     }
                 }
             }
             else
             {
                 sicksteps++;
-                int days = random.Next(20, 220);
+                int days = random.Next((int)(168f/Globals.timestep), (int)(504f / Globals.timestep));    //sick between 7 to 21 days, 7 days * 24 hours = 168, 21 days * 24 hours = 504
                 if (sicksteps >= days)
                 {
                     HealthStatus = HealthStatus.Recovered;
                     QuarentineStatus = QuarentineStatus.Free;
                 }
-                else if (sicksteps >= 30)
+                else if (sicksteps >= 72f/ Globals.timestep)   //go into quarentine after 3 days, 3 days * 24 hours = 72.
                     QuarentineStatus = QuarentineStatus.Quarentined;
             }
         }

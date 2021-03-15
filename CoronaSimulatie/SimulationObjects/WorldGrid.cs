@@ -51,22 +51,22 @@ namespace CoronaSimulatie.SimulationObjects
             if (p.X < 0)
             {
                 p.X = 0;
-                p.Direction -= (float)Math.PI;
+                p.GetTarget();
             }
             if (p.Y < 0)
             {
                 p.Y = 0;
-                p.Direction -= (float)Math.PI;
+                p.GetTarget();
             }
             if (p.X >= tilesize * grid.GetLength(0))
             {
                 p.X = (tilesize * grid.GetLength(0) - 1);
-                p.Direction -= (float)Math.PI;
+                p.GetTarget();
             }
             if (p.Y >= tilesize * grid.GetLength(1))
             {
                 p.Y = (tilesize * grid.GetLength(1) - 1);
-                p.Direction -= (float)Math.PI;
+                p.GetTarget();
             }
 
             int x = (int)(p.X / (float)tilesize);
