@@ -19,8 +19,12 @@ namespace CoronaSimulatie
         List<Person> people;
         Random random;
 
+        DataWriter dataWriter;
+
         public Program()
         {
+            dataWriter = new DataWriter();
+
             random = new Random();
 
             people = new List<Person>();
@@ -42,7 +46,7 @@ namespace CoronaSimulatie
                 {
                     p.Sickness();
                 }
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
     }

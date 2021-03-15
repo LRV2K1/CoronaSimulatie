@@ -28,6 +28,8 @@ namespace VisualCoronaSimulatie
             Content.RootDirectory = "Content";
         }
 
+        DataWriter dataWriter;
+
         DrawableWorld world;
         List<Person> people;
 
@@ -44,6 +46,8 @@ namespace VisualCoronaSimulatie
             IsMouseVisible = true;
             Screen.Background = Color.Black;
             Screen.WindowSize = new Point(1600, 900);
+
+            dataWriter = new DataWriter();
 
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
             GameObjectList<GameObject> simulatie = new GameObjectList<GameObject>();
@@ -65,6 +69,8 @@ namespace VisualCoronaSimulatie
             {
                 people[i].HealthStatus = HealthStatus.Ill;
             }
+
+            dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
 
             simulatie.Position2 = new Vector2(-500, -500);
             simulatie.Scale = (float)Globals.worldsize/90f;
@@ -116,21 +122,26 @@ namespace VisualCoronaSimulatie
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            for (int i = 0; i < 1; i++)
+            if (SaveData.Ill > 0)
             {
-                foreach (Person p in people)
+                for (int i = 0; i < 1; i++)
                 {
-                    p.Move();
-                }
-                foreach (Person p in people)
-                {
-                    p.Sickness();
-                }
-            }
+                    foreach (Person p in people)
+                    {
+                        p.Move();
+                    }
+                    foreach (Person p in people)
+                    {
+                        p.Sickness();
+                    }
 
-            healhy.TextFont.Text = SaveData.Healthy.ToString();
-            ill.TextFont.Text = SaveData.Ill.ToString();
-            recovered.TextFont.Text = SaveData.Recovered.ToString();
+                    dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+                }
+
+                healhy.TextFont.Text = SaveData.Healthy.ToString();
+                ill.TextFont.Text = SaveData.Ill.ToString();
+                recovered.TextFont.Text = SaveData.Recovered.ToString();
+            }
 
         }
 
