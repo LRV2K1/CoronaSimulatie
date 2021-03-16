@@ -56,7 +56,7 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
 
             //close to the target.
-            if (Math.Abs(tx - x) < 1.0f && Math.Abs(ty - y) < 1.0f)
+            if (Math.Abs(tx - x) < 1800f * Globals.timestep && Math.Abs(ty - y) < 1800 * Globals.timestep)
                 GetTarget();
 
             if (waittimer > 0)
@@ -81,8 +81,24 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void GetTarget()
         {
+            //tx = random.Next(0, Globals.worldsize);
+            //ty = random.Next(0, Globals.worldsize);
+
+            //if (tx - x != 0)
+            //{
+            //    direction = (float)Math.Atan(((float)tx - x) / ((float)ty - y));
+            //    if (tx - x < 0)
+            //    {
+            //        direction += (float)Math.PI;
+            //    }
+            //}
+            //else
+            //{
+            //    direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
+            //}
+
             direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
-            float distance = (float)random.NextDouble() * 100;
+            float distance = (float)random.NextDouble() * 300;
             tx = x + (float)(distance * Math.Cos(direction));
             ty = y + (float)(distance * Math.Sin(direction));
             waittimer = random.Next(0, (int)(1f/Globals.timestep)); //wait between 0 to 1 hour.
