@@ -15,7 +15,7 @@ namespace CoronaSimulatie.SimulationObjects
 
         //world parameters
         public static int tilesize { get; } = 20;
-        public static int gridsize { get; } = 50;
+        public static int gridsize { get; } = 100;
         public static int worldsize { get; } = tilesize * gridsize;
 
         //population parameters

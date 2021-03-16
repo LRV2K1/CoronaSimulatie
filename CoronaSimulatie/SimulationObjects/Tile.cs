@@ -36,6 +36,8 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
 
             passengers.Remove(p);
+            if (p.HealthStatus == HealthStatus.Ill)
+                illpassengers.Remove(p);
             world.TilePerson(p);
         }
 

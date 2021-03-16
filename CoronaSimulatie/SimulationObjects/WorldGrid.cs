@@ -74,7 +74,11 @@ namespace CoronaSimulatie.SimulationObjects
 
             p.Tile = this[x, y];
             if (this[x, y] != null)
+            {
                 this[x, y].Passengers.Add(p);
+                if (p.HealthStatus == HealthStatus.Ill)
+                    this[x, y].IllPassengers.Add(p);
+            }
         }
 
 

@@ -85,7 +85,7 @@ namespace CoronaSimulatie.SimulationObjects
             y = ty;
 
             //hotspots
-            int c = random.Next(0, 6);
+            int c = random.Next(0, 10);
             if (c == 0)
             {
                 c = random.Next(0, 5);
@@ -159,7 +159,7 @@ namespace CoronaSimulatie.SimulationObjects
                             if (p.HealthStatus == HealthStatus.Ill && p.quarentineStatus == QuarentineStatus.Free)
                             {
                                 float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
-                                int c = random.Next(0, (int)(0.25f/Globals.timestep));   // staying close to someone roughly 0.25 hours to get sick.
+                                int c = random.Next(0, (int)(0.5f/Globals.timestep));   // staying close to someone roughly 0.5 hours to get sick.
                                 if (c == 0 && distance < 225)
                                 {
                                     HealthStatus = HealthStatus.Ill;
