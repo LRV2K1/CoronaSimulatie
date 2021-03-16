@@ -39,12 +39,12 @@ namespace VisualCoronaSimulatie
 
         TextGameObject healhy, ill, recovered;
         int step;
+        int hours;
         TextGameObject steps;
 
         protected override void LoadContent()
         {
             base.LoadContent();
-
             IsMouseVisible = true;
             Screen.Background = Color.Black;
             Screen.WindowSize = new Point(1600, 900);
@@ -96,6 +96,7 @@ namespace VisualCoronaSimulatie
             recovered.TextFont.Color = Color.Gray;
 
             step = 0;
+            hours = 0;
             steps = new TextGameObject("Hud", 2);
             steps.TextFont.Text = step.ToString();
             steps.Position2 = new Vector2(-960, 300);
@@ -127,6 +128,7 @@ namespace VisualCoronaSimulatie
         //    }
         //}
 
+
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
@@ -143,7 +145,11 @@ namespace VisualCoronaSimulatie
                     {
                         p.Sickness();
                     }
+                }
 
+                if ((float)step * Globals.timestep > hours)
+                {
+                    hours++;
                     dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
                 }
             }

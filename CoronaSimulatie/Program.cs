@@ -19,6 +19,9 @@ namespace CoronaSimulatie
         List<Person> people;
         Random random;
 
+        int step;
+        int hours;
+
         DataWriter dataWriter;
 
         public Program()
@@ -28,16 +31,31 @@ namespace CoronaSimulatie
             random = new Random();
 
             people = new List<Person>();
-            people.Add(new Person(10, 10, random));
+            SaveData.Healthy = Globals.totalpopulation;
 
+            for (int i = 0; i < Globals.totalpopulation; i++)
+            {
+                people.Add(new Person(random.Next(0, Globals.worldsize), random.Next(0, Globals.worldsize), random));
+            }
 
             word = new WorldGrid(Globals.gridsize,Globals.tilesize,people);
+
+            for (int i = 0; i < Globals.illpopulation; i++)
+            {
+                people[i].HealthStatus = HealthStatus.Ill;
+            }
+
+            dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+
+            step = 0;
+            hours = 0;
         }
 
         public void Run()
         {
-            for (int i = 0; i < 100; i++)
+            while (SaveData.Ill > 0) 
             {
+                step++;
                 foreach(Person p in people)
                 {
                     p.Move();
@@ -46,7 +64,11 @@ namespace CoronaSimulatie
                 {
                     p.Sickness();
                 }
-                //Console.ReadLine();
+                if ((float)step * Globals.timestep > hours)
+                {
+                    hours++;
+                    dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+                }
             }
         }
     }

@@ -56,7 +56,7 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
 
             //close to the target.
-            if (Math.Abs(tx - x) < 1800f * Globals.timestep && Math.Abs(ty - y) < 1800 * Globals.timestep)
+            if (Math.Abs(tx - x) < 15000f * Globals.timestep && Math.Abs(ty - y) < 15000 * Globals.timestep)
                 GetTarget();
 
             if (waittimer > 0)
@@ -69,8 +69,8 @@ namespace CoronaSimulatie.SimulationObjects
             //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
 
             //average speed 3 km/h
-            x += (float)(3000f * Globals.timestep * Math.Cos(direction));
-            y += (float)(3000f * Globals.timestep * Math.Sin(direction));
+            x += (float)(30000f * Globals.timestep * Math.Cos(direction));
+            y += (float)(30000f * Globals.timestep * Math.Sin(direction));
 
 
             //x += ((float)random.NextDouble() - 0.5f) * 1;
@@ -81,30 +81,65 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void GetTarget()
         {
-            //tx = random.Next(0, Globals.worldsize);
-            //ty = random.Next(0, Globals.worldsize);
+            x = tx;
+            y = ty;
 
-            //if (tx - x != 0)
-            //{
-            //    direction = (float)Math.Atan(((float)tx - x) / ((float)ty - y));
-            //    if (tx - x < 0)
-            //    {
-            //        direction += (float)Math.PI;
-            //    }
-            //}
-            //else
-            //{
-            //    direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
-            //}
+            //hotspots
+            int c = random.Next(0, 6);
+            if (c == 0)
+            {
+                c = random.Next(0, 5);
+                switch (c)
+                {
+                    case 0:
+                        tx = Globals.worldsize / 4;
+                        ty = Globals.worldsize / 4;
+                        break;
+                    case 1:
+                        tx = 3*(Globals.worldsize / 4);
+                        ty = Globals.worldsize / 4;
+                        break;
+                    case 3:
+                        tx = 3 * (Globals.worldsize / 4);
+                        ty = 3 * (Globals.worldsize / 4);
+                        break;
+                    case 4:
+                        tx = Globals.worldsize / 4;
+                        ty = 3 * (Globals.worldsize / 4);
+                        break;
+                }
+                tx += random.Next(-25, 26);
+                ty += random.Next(-25, 26);
+            }
+            else
+            {
+                tx = random.Next(0, Globals.worldsize);
+                ty = random.Next(0, Globals.worldsize);
+            }
 
-            direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
-            float distance = (float)random.NextDouble() * 300;
-            tx = x + (float)(distance * Math.Cos(direction));
-            ty = y + (float)(distance * Math.Sin(direction));
+
+            if (tx - x != 0)
+            {
+                direction = (float)Math.Atan((ty - y) / (tx - x));
+                if (tx - x < 0)
+                {
+                    direction += (float)Math.PI;
+                }
+            }
+            else
+            {
+                direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
+            }
+            //direction = (float)Math.PI * 0.5f;
+
+            //direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
+            //float distance = (float)random.NextDouble() * 300;
+            //tx = x + (float)(distance * Math.Cos(direction));
+            //ty = y + (float)(distance * Math.Sin(direction));
             waittimer = random.Next(0, (int)(1f/Globals.timestep)); //wait between 0 to 1 hour.
-            //if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
-            //    //GetTarget();
-            //    return;
+            ////if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
+            ////    //GetTarget();
+            ////    return;
         }
 
         public void Sickness()
@@ -124,7 +159,7 @@ namespace CoronaSimulatie.SimulationObjects
                             if (p.HealthStatus == HealthStatus.Ill && p.quarentineStatus == QuarentineStatus.Free)
                             {
                                 float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
-                                int c = random.Next(0, (int)(0.5f/Globals.timestep));   // staying close to someone roughly 0.5 hours to get sick.
+                                int c = random.Next(0, (int)(0.25f/Globals.timestep));   // staying close to someone roughly 0.25 hours to get sick.
                                 if (c == 0 && distance < 225)
                                 {
                                     HealthStatus = HealthStatus.Ill;

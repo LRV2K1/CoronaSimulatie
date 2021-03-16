@@ -50,23 +50,23 @@ namespace CoronaSimulatie.SimulationObjects
         {
             if (p.X < 0)
             {
-                p.X = 0;
                 p.GetTarget();
+                p.X = 0;
             }
             if (p.Y < 0)
             {
+                p.GetTarget();
                 p.Y = 0;
-                p.GetTarget();
             }
-            if (p.X >= tilesize * grid.GetLength(0))
+            if (p.X >= Globals.worldsize)
             {
-                p.X = (tilesize * grid.GetLength(0) - 1);
                 p.GetTarget();
+                p.X = Globals.worldsize-1;
             }
-            if (p.Y >= tilesize * grid.GetLength(1))
+            if (p.Y >= Globals.worldsize)
             {
-                p.Y = (tilesize * grid.GetLength(1) - 1);
                 p.GetTarget();
+                p.Y = Globals.worldsize-1;
             }
 
             int x = (int)(p.X / (float)tilesize);

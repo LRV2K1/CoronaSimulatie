@@ -14,7 +14,7 @@ namespace CoronaSimulatie.SimulationObjects
         public static float timestep { get; } = 1f/60f;
 
         //world parameters
-        public static int tilesize { get; } = 15;
+        public static int tilesize { get; } = 20;
         public static int gridsize { get; } = 50;
         public static int worldsize { get; } = tilesize * gridsize;
 
