@@ -72,7 +72,7 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void End()
         {
-            worksheet.Cells[2, 8] = "=GEMIDDELDE(F3:F" + column + ")";
+            worksheet.Cells[2, 8] = "=AVERAGE(F3:F" + column + ")";
             worksheet.Cells[2, 11] = "=H2/J2";
         }
 
