@@ -28,7 +28,7 @@ namespace VisualCoronaSimulatie
             Content.RootDirectory = "Content";
         }
 
-        DataWriter dataWriter;
+        //DataWriter dataWriter;
 
         DrawableWorld world;
         List<Person> people;
@@ -37,7 +37,7 @@ namespace VisualCoronaSimulatie
         int frame;
         float time;
 
-        TextGameObject healhy, ill, recovered;
+        TextGameObject susceptible, exposed, infectious, recovered;
         int step;
         int hours;
         TextGameObject steps;
@@ -49,13 +49,13 @@ namespace VisualCoronaSimulatie
             Screen.Background = Color.Black;
             Screen.WindowSize = new Point(1600, 900);
 
-            dataWriter = new DataWriter();
+            //dataWriter = new DataWriter();
 
             GameObjectList<GameObject> state = new GameObjectList<GameObject>();
             GameObjectList<GameObject> simulatie = new GameObjectList<GameObject>();
 
             people = new List<Person>();
-            SaveData.Healthy = Globals.totalpopulation;
+            SaveData.Susceptible = Globals.totalpopulation;
             for (int i = 0; i < Globals.totalpopulation; i++)
             {
                 DrawablePerson p = new DrawablePerson(random.Next(0, Globals.worldsize), random.Next(0, Globals.worldsize), random);
@@ -69,10 +69,10 @@ namespace VisualCoronaSimulatie
             }
             for (int i = 0; i < Globals.illpopulation; i++)
             {
-                people[i].HealthStatus = HealthStatus.Ill;
+                people[i].HealthStatus = HealthStatus.Infectious;
             }
 
-            dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+            //dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
 
             simulatie.Position2 = new Vector2(-500, -500);
             simulatie.Scale = 1000f/ (float)Globals.worldsize;
@@ -82,28 +82,33 @@ namespace VisualCoronaSimulatie
             frames.TextFont.Text = "start";
             frames.Position2 = new Vector2(-960, 500);
 
-            healhy = new TextGameObject("Hud", 2);
-            healhy.TextFont.Text = 0.ToString();
-            healhy.Position2 = new Vector2(-960, 450);
-            healhy.TextFont.Color = Color.LightGreen;
-            ill = new TextGameObject("Hud", 2);
-            ill.TextFont.Text = 0.ToString();
-            ill.Position2 = new Vector2(-960, 400);
-            ill.TextFont.Color = Color.Red;
+            susceptible = new TextGameObject("Hud", 2);
+            susceptible.TextFont.Text = 0.ToString();
+            susceptible.Position2 = new Vector2(-960, 450);
+            susceptible.TextFont.Color = new Color(65, 122, 0);
+            exposed = new TextGameObject("Hud", 2);
+            exposed.TextFont.Text = 0.ToString();
+            exposed.Position2 = new Vector2(-960, 400);
+            exposed.TextFont.Color = new Color(195, 174, 0);
+            infectious = new TextGameObject("Hud", 2);
+            infectious.TextFont.Text = 0.ToString();
+            infectious.Position2 = new Vector2(-960, 350);
+            infectious.TextFont.Color = new Color(255, 56, 0);
             recovered = new TextGameObject("Hud", 2);
             recovered.TextFont.Text = 0.ToString();
-            recovered.Position2 = new Vector2(-960, 350);
-            recovered.TextFont.Color = Color.Gray;
+            recovered.Position2 = new Vector2(-960, 300);
+            recovered.TextFont.Color = new Color(1, 65, 255);
 
             step = 0;
             hours = 0;
             steps = new TextGameObject("Hud", 2);
             steps.TextFont.Text = step.ToString();
-            steps.Position2 = new Vector2(-960, 300);
+            steps.Position2 = new Vector2(-960, 250);
 
             state.Add(frames);
-            state.Add(healhy);
-            state.Add(ill);
+            state.Add(susceptible);
+            state.Add(exposed);
+            state.Add(infectious);
             state.Add(recovered);
             state.Add(steps);
             state.Add(simulatie);
@@ -111,28 +116,11 @@ namespace VisualCoronaSimulatie
             GameStateManager.SwitchTo("start");
         }
 
-        //protected override void HandleInput()
-        //{
-        //    base.HandleInput();
-
-        //    if (inputHelper.KeyPressed(Keys.Space))
-        //    {
-        //        foreach (Person p in people)
-        //        {
-        //            p.Move();
-        //        }
-        //        foreach (Person p in people)
-        //        {
-        //            p.Sickness();
-        //        }
-        //    }
-        //}
-
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (SaveData.Ill > 0)
+            if (SaveData.Infectious > 0)
             {
                 for (int i = 0; i < 1; i++)
                 {
@@ -150,7 +138,7 @@ namespace VisualCoronaSimulatie
                 if ((float)step * Globals.timestep > hours)
                 {
                     hours++;
-                    dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+                    //dataWriter.Write();
                 }
             }
 
@@ -158,8 +146,9 @@ namespace VisualCoronaSimulatie
 
         protected override void Draw(GameTime gameTime)
         {
-            healhy.TextFont.Text = SaveData.Healthy.ToString();
-            ill.TextFont.Text = SaveData.Ill.ToString();
+            susceptible.TextFont.Text = SaveData.Susceptible.ToString();
+            exposed.TextFont.Text = SaveData.Exposed.ToString();
+            infectious.TextFont.Text = SaveData.Infectious.ToString();
             recovered.TextFont.Text = SaveData.Recovered.ToString();
 
             steps.TextFont.Text = ((float)step * Globals.timestep).ToString();

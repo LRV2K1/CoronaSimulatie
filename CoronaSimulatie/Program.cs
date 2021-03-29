@@ -31,7 +31,7 @@ namespace CoronaSimulatie
             random = new Random();
 
             people = new List<Person>();
-            SaveData.Healthy = Globals.totalpopulation;
+            SaveData.Susceptible = Globals.totalpopulation;
 
             for (int i = 0; i < Globals.totalpopulation; i++)
             {
@@ -42,10 +42,10 @@ namespace CoronaSimulatie
 
             for (int i = 0; i < Globals.illpopulation; i++)
             {
-                people[i].HealthStatus = HealthStatus.Ill;
+                people[i].HealthStatus = HealthStatus.Infectious;
             }
 
-            dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+            dataWriter.Write();
 
             step = 0;
             hours = 0;
@@ -53,7 +53,8 @@ namespace CoronaSimulatie
 
         public void Run()
         {
-            while (SaveData.Ill > 0) 
+            //for (int i = 0; i < 129600; i++)
+            while (SaveData.Infectious > 0 || SaveData.Exposed > 0) 
             {
                 step++;
                 foreach(Person p in people)
@@ -67,9 +68,10 @@ namespace CoronaSimulatie
                 if ((float)step * Globals.timestep > hours)
                 {
                     hours++;
-                    dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
+                    dataWriter.Write();
                 }
             }
+            dataWriter.End();
         }
     }
 }

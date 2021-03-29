@@ -19,10 +19,6 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             visual.Drawable.Origin = new Vector2(0, world.TileSize);
 
             visual.Position2 = new Vector2(x * world.TileSize, Y * world.TileSize);
-            //if ((x + y) % 2 == 0)
-            //    visual.Drawable.Color = Color.Black;
-            //else
-            //    visual.Drawable.Color = Color.White;
         }
 
         public DrawGameObject Visual

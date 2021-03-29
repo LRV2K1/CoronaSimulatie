@@ -15,13 +15,13 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             : base(x,y, random)
         {
             visual = new DrawGameObject(new SpriteSheet(GameEnvironment.DrawingHelper.GetTexture()), 1);
-            visual.Drawable.SpritePart = new Rectangle(0, 0, 5, 5);
+            visual.Drawable.SpritePart = new Rectangle(0, 0, 15, 15);
             visual.Drawable.Origin = visual.Drawable.Center;
 
             //visual.Drawable.Color = new Color((int)((x / 10000f) * 255), (int)((y / 10000f) * 255), 0);
 
             visual.Position2 = new Vector2(x, y);
-            visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
+            visual.Drawable.Color = GetHeathColor(HealthStatus);
         }
 
         public override void Move()
@@ -42,35 +42,23 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             set
             {
                 base.HealthStatus = value;
-                visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
+                visual.Drawable.Color = GetHeathColor(HealthStatus);
             }
         }
 
-        public override QuarentineStatus QuarentineStatus
-        {
-            get { return base.QuarentineStatus; }
-            set 
-            { 
-                base.QuarentineStatus = value;
-                visual.Drawable.Color = GetHeathColor(HealthStatus, QuarentineStatus);
-            }
-        }
 
-        private Color GetHeathColor(HealthStatus health, QuarentineStatus quarentine)
+        private Color GetHeathColor(HealthStatus health)
         {
-            if (quarentine == QuarentineStatus.Quarentined)
-            {
-                return Color.Black;
-            }
-
             switch (health)
             {
-                case HealthStatus.Healthy:
-                    return Color.LightGreen;
-                case HealthStatus.Ill:
-                    return Color.Red;
+                case HealthStatus.Susceptible:
+                    return new Color(65,122,0);
+                case HealthStatus.Exposed:
+                    return new Color(195,174,0);
+                case HealthStatus.Infectious:
+                    return new Color(255,56,0);
                 case HealthStatus.Recovered:
-                    return Color.Gray;
+                    return new Color(1, 65, 255);
             }
 
             return Color.White;

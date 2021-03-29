@@ -8,15 +8,10 @@ namespace CoronaSimulatie.SimulationObjects
 {
     public enum HealthStatus
     {
-        Healthy,
-        Ill,
+        Susceptible,
+        Exposed,
+        Infectious,
         Recovered
-    }
-
-    public enum QuarentineStatus
-    {
-        Free,
-        Quarentined
     }
 
     public class Person
@@ -31,11 +26,9 @@ namespace CoronaSimulatie.SimulationObjects
 
         float direction;
         int sicksteps;
-        int quarentinesteps;
         int waittimer;
 
         HealthStatus healthStatus;
-        QuarentineStatus quarentineStatus;
 
         public Person(float x, float y, Random random)
         {
@@ -45,9 +38,7 @@ namespace CoronaSimulatie.SimulationObjects
             ty = y;
             this.random = random;
             sicksteps = 0;
-            quarentinesteps = 0;
-            healthStatus = HealthStatus.Healthy;
-            quarentineStatus = QuarentineStatus.Free;
+            healthStatus = HealthStatus.Susceptible;
         }
 
         public virtual void Move()
@@ -85,7 +76,7 @@ namespace CoronaSimulatie.SimulationObjects
             y = ty;
 
             //hotspots
-            int c = random.Next(0, 10);
+            int c = random.Next(0, 5);
             if (c == 0)
             {
                 c = random.Next(0, 5);
@@ -130,67 +121,73 @@ namespace CoronaSimulatie.SimulationObjects
             {
                 direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
             }
-            //direction = (float)Math.PI * 0.5f;
 
-            //direction = (float)((random.NextDouble() - 0.5f) * Math.PI * 2f);
-            //float distance = (float)random.NextDouble() * 300;
-            //tx = x + (float)(distance * Math.Cos(direction));
-            //ty = y + (float)(distance * Math.Sin(direction));
             waittimer = random.Next(0, (int)(1f/Globals.timestep)); //wait between 0 to 1 hour.
-            ////if (tx < 0 || tx >= Globals.worldsize || ty < 0 || ty >= Globals.worldsize)
-            ////    //GetTarget();
-            ////    return;
         }
 
         public void Sickness()
         {
-            if (healthStatus == HealthStatus.Recovered)
-                return;
-            if (healthStatus == HealthStatus.Healthy)
+            switch (healthStatus)
             {
-                if (quarentineStatus == QuarentineStatus.Free)
-                {
-                    List<List<Person>> neighbours = tile.IllNeighbours();
+                case HealthStatus.Susceptible:
+                    Susceptible();
+                    break;
+                case HealthStatus.Exposed:
+                    Exposed();
+                    break;
+                case HealthStatus.Infectious:
+                    Infectious();
+                    break;
+                case HealthStatus.Recovered:
+                    Recovered();
+                    break;
+            }
+        }
 
-                    foreach (List<Person> l in neighbours)
-                    {
-                        foreach (Person p in l)
-                        {
-                            if (p.HealthStatus == HealthStatus.Ill && p.quarentineStatus == QuarentineStatus.Free)
-                            {
-                                float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
-                                int c = random.Next(0, (int)(0.5f/Globals.timestep));   // staying close to someone roughly 0.5 hours to get sick.
-                                if (c == 0 && distance < 225)
-                                {
-                                    HealthStatus = HealthStatus.Ill;
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    quarentinesteps++;
-                    if (quarentinesteps > 336f/Globals.timestep) //come out of quarentine after 14 days, 14 days * 24 hours = 336 timesteps
-                    {
-                        QuarentineStatus = QuarentineStatus.Free;
-                        quarentinesteps = 0;
-                    }
-                }
-            }
-            else
+        private void Susceptible()
+        {
+            List<List<Person>> neighbours = tile.InfectiousNeighbours();
+            foreach (List<Person> l in neighbours)
             {
-                sicksteps++;
-                int days = random.Next((int)(168f/Globals.timestep), (int)(504f / Globals.timestep));    //sick between 7 to 21 days, 7 days * 24 hours = 168, 21 days * 24 hours = 504
-                if (sicksteps >= days)
+                foreach (Person p in l)
                 {
-                    HealthStatus = HealthStatus.Recovered;
-                    QuarentineStatus = QuarentineStatus.Free;
+
+                    float distance = (p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y);
+                    int c = random.Next(0, (int)(Globals.C / Globals.timestep));   // staying close to someone roughly 0.5 hours to get sick.
+                    if (c == 0 && distance < 225)
+                    {
+                        HealthStatus = HealthStatus.Exposed;
+                        sicksteps = 0;
+                        return;
+                    }
+
                 }
-                else if (sicksteps >= 72f/ Globals.timestep)   //go into quarentine after 3 days, 3 days * 24 hours = 72.
-                    QuarentineStatus = QuarentineStatus.Quarentined;
             }
+        }
+
+        private void Exposed()
+        {
+            sicksteps++;
+            if (sicksteps >= Globals.infectiondays / Globals.timestep)
+            {
+                sicksteps = 0;
+                HealthStatus = HealthStatus.Infectious;
+            }
+        }
+
+        private void Infectious()
+        {
+            sicksteps++;
+            if (sicksteps >= Globals.a_contingiousnessdays / Globals.timestep)
+            {
+                sicksteps = 0;
+                HealthStatus = HealthStatus.Recovered;
+            }
+        }
+
+        private void Recovered()
+        {
+            return;
         }
 
         public float X
@@ -223,11 +220,14 @@ namespace CoronaSimulatie.SimulationObjects
             set {
                 switch (healthStatus)
                 {
-                    case HealthStatus.Healthy:
-                        SaveData.Healthy--;
+                    case HealthStatus.Susceptible:
+                        SaveData.Susceptible--;
                         break;
-                    case HealthStatus.Ill:
-                        SaveData.Ill--;
+                    case HealthStatus.Exposed:
+                        SaveData.Exposed--;
+                        break;
+                    case HealthStatus.Infectious:
+                        SaveData.Infectious--;
                         break;
                     case HealthStatus.Recovered:
                         SaveData.Recovered--;
@@ -238,11 +238,14 @@ namespace CoronaSimulatie.SimulationObjects
 
                 switch (healthStatus)
                 {
-                    case HealthStatus.Healthy:
-                        SaveData.Healthy++;
+                    case HealthStatus.Susceptible:
+                        SaveData.Susceptible++;
                         break;
-                    case HealthStatus.Ill:
-                        SaveData.Ill++;
+                    case HealthStatus.Exposed:
+                        SaveData.Exposed++;
+                        break;
+                    case HealthStatus.Infectious:
+                        SaveData.Infectious++;
                         break;
                     case HealthStatus.Recovered:
                         SaveData.Recovered++;
@@ -252,12 +255,6 @@ namespace CoronaSimulatie.SimulationObjects
 
                 tile.UpdateStatus(this);
             }
-        }
-
-        public virtual QuarentineStatus QuarentineStatus
-        {
-            get { return quarentineStatus; }
-            set { quarentineStatus = value; }
         }
     }
 }

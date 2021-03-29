@@ -15,11 +15,16 @@ namespace CoronaSimulatie.SimulationObjects
 
         //world parameters
         public static int tilesize { get; } = 20;
-        public static int gridsize { get; } = 1000; 
+        public static int gridsize { get; } = 500; 
         public static int worldsize { get; } = tilesize * gridsize;
 
         //population parameters
-        public static int totalpopulation { get; } = 10000;
+        public static int totalpopulation { get; } = 1000;
         public static int illpopulation { get; } = (int)(totalpopulation * 0.01f + 0.5f);
+
+        //disease model
+        public static float infectiondays { get; } = 2 * 24;           //infected, not infectous
+        public static float a_contingiousnessdays { get; } = 4 * 24;   //infectous, no symptomes
+        public static float C { get; } = 0.75f;
     }
 }

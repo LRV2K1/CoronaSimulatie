@@ -8,8 +8,9 @@ namespace CoronaSimulatie.SimulationObjects
 {
     public static class SaveData
     {
-        public static int Ill = 0;
-        public static int Healthy = 0;
+        public static int Susceptible = 0;
+        public static int Exposed = 0;
+        public static int Infectious = 0;
         public static int Recovered = 0;
     }
 }

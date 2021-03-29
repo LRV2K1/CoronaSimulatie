@@ -9,7 +9,7 @@ namespace CoronaSimulatie.SimulationObjects
     public class Tile
     {
         protected List<Person> passengers;
-        protected List<Person> illpassengers;
+        protected List<Person> infectiousPassengers;
 
         protected int x, y;
         protected WorldGrid world;
@@ -17,7 +17,7 @@ namespace CoronaSimulatie.SimulationObjects
         public Tile(int x, int y, WorldGrid world)
         {
             passengers = new List<Person>();
-            illpassengers = new List<Person>();
+            infectiousPassengers = new List<Person>();
 
             this.x = x;
             this.y = y;
@@ -36,17 +36,24 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
 
             passengers.Remove(p);
-            if (p.HealthStatus == HealthStatus.Ill)
-                illpassengers.Remove(p);
+            if (p.HealthStatus == HealthStatus.Infectious)
+                infectiousPassengers.Remove(p);
             world.TilePerson(p);
         }
 
         public void UpdateStatus(Person p)
         {
-            if (p.HealthStatus == HealthStatus.Ill)
-                illpassengers.Add(p);
+            if (p.HealthStatus == HealthStatus.Infectious)
+                infectiousPassengers.Add(p);
             if (p.HealthStatus == HealthStatus.Recovered)
-                illpassengers.Remove(p);
+                infectiousPassengers.Remove(p);
+        }
+
+        public void AddPassenger(Person p)
+        {
+            passengers.Add(p);
+            if (p.HealthStatus == HealthStatus.Infectious)
+                infectiousPassengers.Add(p);
         }
 
 
@@ -74,7 +81,7 @@ namespace CoronaSimulatie.SimulationObjects
         /// Get all ill neighbouring people.
         /// </summary>
         /// <returns>returns all neighbouring people.</returns>
-        public List<List<Person>> IllNeighbours()
+        public List<List<Person>> InfectiousNeighbours()
         {
             List<List<Person>> neighbours = new List<List<Person>>();
 
@@ -84,7 +91,7 @@ namespace CoronaSimulatie.SimulationObjects
                 {
                     Tile neighbour = world[x, y];
                     if (neighbour != null)
-                        neighbours.Add(neighbour.IllPassengers);
+                        neighbours.Add(neighbour.InfectiousPassengers);
                 }
             }
             return neighbours;
@@ -96,9 +103,9 @@ namespace CoronaSimulatie.SimulationObjects
             get { return passengers; }
         }
 
-        public List<Person> IllPassengers
+        public List<Person> InfectiousPassengers
         {
-            get { return illpassengers; }
+            get { return infectiousPassengers; }
         }
 
         public int X
