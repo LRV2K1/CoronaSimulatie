@@ -72,6 +72,13 @@ namespace VisualCoronaSimulatie
                 people[i].HealthStatus = HealthStatus.Infectious;
             }
 
+            ShuffleClass.Shuffle(people);
+
+            for (int i = 0; i < Globals.apppopulation; i++)
+            {
+                people[i].App = new App();
+            }
+
             //dataWriter.Write(SaveData.Healthy, SaveData.Ill, SaveData.Recovered);
 
             simulatie.Position2 = new Vector2(-500, -500);

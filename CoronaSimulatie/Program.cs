@@ -55,6 +55,13 @@ namespace CoronaSimulatie
                 people[i].HealthStatus = HealthStatus.Infectious;
             }
 
+            ShuffleClass.Shuffle(people);
+
+            for (int i = 0; i < Globals.apppopulation; i++)
+            {
+                people[i].App = new App();
+            }
+
             dataWriter.Write();
 
             step = 0;
@@ -63,7 +70,7 @@ namespace CoronaSimulatie
 
         public void Run()
         {
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < Globals.simulations; i++)
             {
                 Setup(i);
                 //for (int i = 0; i < 129600; i++)

@@ -12,6 +12,7 @@ namespace CoronaSimulatie.SimulationObjects
         /// The number of hours in one timestep.
         /// </summary>
         public static float timestep { get; } = 1f/60f;
+        public static int simulations { get; } = 100;
 
         //world parameters
         public static int tilesize { get; } = 20;
@@ -21,10 +22,15 @@ namespace CoronaSimulatie.SimulationObjects
         //population parameters
         public static int totalpopulation { get; } = 1000;
         public static int illpopulation { get; } = (int)(totalpopulation * 0.01f + 0.5f);
+        public static int apppopulation { get; } = (int)(totalpopulation * 0.0f + 0.5f);
 
         //disease model
         public static float infectiondays { get; } = 2 * 24;           //infected, not infectous
         public static float a_contingiousnessdays { get; } = 4 * 24;   //infectous, no symptomes
-        public static float C { get; } = 0.75f;
+        public static float C { get; } = 0.5f;
+
+        //app
+        public static float connectiontime { get; } = infectiondays + a_contingiousnessdays;
+        public static float getconnectedTime { get; } = 0.25f;
     }
 }

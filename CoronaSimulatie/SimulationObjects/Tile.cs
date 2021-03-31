@@ -10,6 +10,7 @@ namespace CoronaSimulatie.SimulationObjects
     {
         protected List<Person> passengers;
         protected List<Person> infectiousPassengers;
+        protected List<App> appPassengers;
 
         protected int x, y;
         protected WorldGrid world;
@@ -18,6 +19,7 @@ namespace CoronaSimulatie.SimulationObjects
         {
             passengers = new List<Person>();
             infectiousPassengers = new List<Person>();
+            appPassengers = new List<App>();
 
             this.x = x;
             this.y = y;
@@ -38,6 +40,8 @@ namespace CoronaSimulatie.SimulationObjects
             passengers.Remove(p);
             if (p.HealthStatus == HealthStatus.Infectious)
                 infectiousPassengers.Remove(p);
+            if (p.App != null && p.HealthStatus != HealthStatus.Recovered)
+                appPassengers.Remove(p.App);
             world.TilePerson(p);
         }
 
@@ -46,7 +50,11 @@ namespace CoronaSimulatie.SimulationObjects
             if (p.HealthStatus == HealthStatus.Infectious)
                 infectiousPassengers.Add(p);
             if (p.HealthStatus == HealthStatus.Recovered)
+            {
                 infectiousPassengers.Remove(p);
+                if (p.App != null)
+                    appPassengers.Remove(p.App);
+            }
         }
 
         public void AddPassenger(Person p)
@@ -54,6 +62,8 @@ namespace CoronaSimulatie.SimulationObjects
             passengers.Add(p);
             if (p.HealthStatus == HealthStatus.Infectious)
                 infectiousPassengers.Add(p);
+            if (p.App != null && p.HealthStatus != HealthStatus.Recovered)
+                appPassengers.Add(p.App);
         }
 
 
@@ -97,6 +107,23 @@ namespace CoronaSimulatie.SimulationObjects
             return neighbours;
         }
 
+        public List<List<App>> AppNeighbours()
+        {
+            List<List<App>> neighbours = new List<List<App>>();
+
+            for (int x = this.x - 1; x <= this.x + 1; x++)
+            {
+                for (int y = this.y - 1; y <= this.y + 1; y++)
+                {
+                    Tile neighbour = world[x, y];
+                    if (neighbour != null)
+                        neighbours.Add(neighbour.AppPassengers);
+                }
+            }
+
+            return neighbours;
+        }
+
 
         public List<Person> Passengers
         {
@@ -106,6 +133,11 @@ namespace CoronaSimulatie.SimulationObjects
         public List<Person> InfectiousPassengers
         {
             get { return infectiousPassengers; }
+        }
+
+        public List<App> AppPassengers
+        {
+            get { return appPassengers; }
         }
 
         public int X

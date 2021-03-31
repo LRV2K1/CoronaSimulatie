@@ -23,6 +23,7 @@ namespace CoronaSimulatie.SimulationObjects
 
         protected Tile tile;
         protected Random random;
+        protected App app;
 
         float direction;
         int sicksteps;
@@ -39,6 +40,7 @@ namespace CoronaSimulatie.SimulationObjects
             this.random = random;
             sicksteps = 0;
             healthStatus = HealthStatus.Susceptible;
+            app = null;
         }
 
         public virtual void Move()
@@ -122,11 +124,16 @@ namespace CoronaSimulatie.SimulationObjects
                 direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
             }
 
-            waittimer = random.Next(0, (int)(1f/Globals.timestep)); //wait between 0 to 1 hour.
+            waittimer = random.Next(0, (int)(3f/Globals.timestep)); //wait between 0 to 3 hour.
         }
 
         public void Sickness()
         {
+            if (app != null && healthStatus != HealthStatus.Recovered)
+            {
+                app.Run();
+            }
+
             switch (healthStatus)
             {
                 case HealthStatus.Susceptible:
@@ -185,6 +192,24 @@ namespace CoronaSimulatie.SimulationObjects
             }
         }
 
+        //get a test.
+        public void CheckSickness()
+        {
+            switch (healthStatus)
+            {
+                case HealthStatus.Susceptible:
+                    break;
+                case HealthStatus.Exposed:
+                    HealthStatus = HealthStatus.Recovered;
+                    break;
+                case HealthStatus.Infectious:
+                    HealthStatus = HealthStatus.Recovered;
+                    break;
+                case HealthStatus.Recovered:
+                    break;
+            }
+        }
+
         private void Recovered()
         {
             return;
@@ -212,6 +237,15 @@ namespace CoronaSimulatie.SimulationObjects
         {
             get { return tile; }
             set { tile = value; }
+        }
+
+        public virtual App App
+        {
+            get { return app; }
+            set { 
+                app = value;
+                app.Owner = this;
+            }
         }
 
         public virtual HealthStatus HealthStatus
@@ -249,9 +283,10 @@ namespace CoronaSimulatie.SimulationObjects
                         break;
                     case HealthStatus.Recovered:
                         SaveData.Recovered++;
+                        if (app != null)
+                            app.SentMessage();
                         break;
                 }
-
 
                 tile.UpdateStatus(this);
             }
