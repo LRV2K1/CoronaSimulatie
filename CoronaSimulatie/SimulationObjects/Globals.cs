@@ -22,7 +22,7 @@ namespace CoronaSimulatie.SimulationObjects
         //population parameters
         public static int totalpopulation { get; } = 1000;
         public static int illpopulation { get; } = (int)(totalpopulation * 0.01f + 0.5f);
-        public static int apppopulation { get; } = (int)(totalpopulation * 0.0f + 0.5f);
+        public static int apppopulation { get; } = (int)(totalpopulation * 1.0f + 0.5f);
 
         //disease model
         public static float infectiondays { get; } = 2 * 24;           //infected, not infectous
@@ -30,7 +30,12 @@ namespace CoronaSimulatie.SimulationObjects
         public static float C { get; } = 0.5f;
 
         //app
-        public static float connectiontime { get; } = infectiondays + a_contingiousnessdays;
-        public static float getconnectedTime { get; } = 0.25f;
+        public static float L { get; } = infectiondays + a_contingiousnessdays;
+        public static float K { get; } = 0.25f;
+
+        //movement
+        public static float W { get; } = 3f;
+        public static int T { get; } = 5;
+        public static int D { get; } = 25;
     }
 }

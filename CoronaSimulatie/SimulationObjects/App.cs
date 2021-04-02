@@ -44,7 +44,7 @@ namespace CoronaSimulatie.SimulationObjects
             if (contacts.Count == 0)
                 return;
             (App app, int tijd) pair = contacts.First();
-            if (step - pair.tijd >= Globals.connectiontime/ Globals.timestep)
+            if (step - pair.tijd >= Globals.L/ Globals.timestep)
             {
                 contacts.RemoveFirst();
                 hascontacts.Remove(pair.app);
@@ -75,7 +75,7 @@ namespace CoronaSimulatie.SimulationObjects
 
                     close[app] = (step, pair.start);
 
-                    if (pair.last - pair.start >= Globals.getconnectedTime/ Globals.timestep)
+                    if (pair.last - pair.start >= Globals.K/ Globals.timestep)
                     {
                         contacts.AddLast((app, step));
                         hascontacts.Add(app);

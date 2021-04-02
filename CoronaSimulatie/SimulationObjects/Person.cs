@@ -58,16 +58,9 @@ namespace CoronaSimulatie.SimulationObjects
                 return;
             }
 
-            //direction += (float)((random.NextDouble() - 0.5f) * Math.PI * 0.5);
-            //float distance = (float)random.NextDouble() * 3000f * Globals.timestep;
-
             //average speed 3 km/h
             x += (float)(30000f * Globals.timestep * Math.Cos(direction));
             y += (float)(30000f * Globals.timestep * Math.Sin(direction));
-
-
-            //x += ((float)random.NextDouble() - 0.5f) * 1;
-            //y += ((float)random.NextDouble() - 0.5f) * 1;
 
             tile.Move(this);
         }
@@ -78,7 +71,7 @@ namespace CoronaSimulatie.SimulationObjects
             y = ty;
 
             //hotspots
-            int c = random.Next(0, 5);
+            int c = random.Next(0, Globals.T);
             if (c == 0)
             {
                 c = random.Next(0, 5);
@@ -101,8 +94,8 @@ namespace CoronaSimulatie.SimulationObjects
                         ty = 3 * (Globals.worldsize / 4);
                         break;
                 }
-                tx += random.Next(-25, 26);
-                ty += random.Next(-25, 26);
+                tx += random.Next(-Globals.D, Globals.D + 1);
+                ty += random.Next(-Globals.D, Globals.D + 1);
             }
             else
             {
@@ -124,7 +117,7 @@ namespace CoronaSimulatie.SimulationObjects
                 direction = (float)Math.PI * 0.5f * Math.Sign(ty - y);
             }
 
-            waittimer = random.Next(0, (int)(3f/Globals.timestep)); //wait between 0 to 3 hour.
+            waittimer = random.Next(0, (int)(Globals.W/Globals.timestep)); //wait between 0 to 3 hour.
         }
 
         public void Sickness()
