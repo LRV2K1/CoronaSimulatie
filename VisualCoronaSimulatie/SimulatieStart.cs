@@ -127,9 +127,9 @@ namespace VisualCoronaSimulatie
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            if (SaveData.Infectious > 0)
+            if (SaveData.Infectious > 0 || SaveData.Exposed > 0)
             {
-                for (int i = 0; i < 1; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     step++;
                     foreach (Person p in people)
@@ -153,10 +153,10 @@ namespace VisualCoronaSimulatie
 
         protected override void Draw(GameTime gameTime)
         {
-            susceptible.TextFont.Text = SaveData.Susceptible.ToString();
-            exposed.TextFont.Text = SaveData.Exposed.ToString();
-            infectious.TextFont.Text = SaveData.Infectious.ToString();
-            recovered.TextFont.Text = SaveData.Recovered.ToString();
+            susceptible.TextFont.Text = "Susceptible: " + SaveData.Susceptible.ToString();
+            exposed.TextFont.Text = "Exposed: " + SaveData.Exposed.ToString();
+            infectious.TextFont.Text = "Infectious: " + SaveData.Infectious.ToString();
+            recovered.TextFont.Text = "Recovered: " + SaveData.Recovered.ToString();
 
             steps.TextFont.Text = ((float)step * Globals.timestep).ToString();
 

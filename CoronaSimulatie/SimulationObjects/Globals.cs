@@ -22,7 +22,7 @@ namespace CoronaSimulatie.SimulationObjects
         //population parameters
         public static int totalpopulation { get; } = 1000;
         public static int illpopulation { get; } = (int)(totalpopulation * 0.01f + 0.5f);
-        public static int apppopulation { get; } = (int)(totalpopulation * 1.0f + 0.5f);
+        public static int apppopulation { get; } = (int)(totalpopulation * 0.25f + 0.5f);
 
         //disease model
         public static float infectiondays { get; } = 2 * 24;           //infected, not infectous

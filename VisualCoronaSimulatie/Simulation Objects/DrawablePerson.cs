@@ -15,7 +15,7 @@ namespace VisualCoronaSimulatie.Simulation_Objects
             : base(x,y, random)
         {
             visual = new DrawGameObject(new SpriteSheet(GameEnvironment.DrawingHelper.GetTexture()), 1);
-            visual.Drawable.SpritePart = new Rectangle(0, 0, 15, 15);
+            visual.Drawable.SpritePart = new Rectangle(0, 0, 10, 10);
             visual.Drawable.Origin = visual.Drawable.Center;
 
             //visual.Drawable.Color = new Color((int)((x / 10000f) * 255), (int)((y / 10000f) * 255), 0);

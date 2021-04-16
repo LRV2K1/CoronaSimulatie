@@ -14,7 +14,7 @@ namespace CoronaSimulatie.SimulationObjects
         _Worksheet worksheet;
         int column;
 
-        int previous_susceptible;
+        float vs, ve, vj, vr;
         int nummer;
 
         DataWriter writer;
@@ -51,7 +51,9 @@ namespace CoronaSimulatie.SimulationObjects
             worksheet.Cells[1, 3] = "Infectious";
             worksheet.Cells[1, 4] = "Recovered";
 
-            worksheet.Cells[1, 6] = "calculated-beta";
+            worksheet.Cells[1, 17] = "calculated-beta";
+            worksheet.Cells[1, 18] = "calculated-alpha";
+            worksheet.Cells[1, 19] = "calculated-gamma";
 
             worksheet.Cells[1, 8] = "beta";
             worksheet.Cells[1, 9] = "alpha";
@@ -67,7 +69,10 @@ namespace CoronaSimulatie.SimulationObjects
             worksheet.Cells[2, 14] = Globals.illpopulation;
             worksheet.Cells[2, 15] = Globals.worldsize;
 
-            previous_susceptible = 0;
+            vs = 0;
+            ve = 0;
+            vj = 0;
+            vr = 0;
         }
 
         public void Write()
@@ -77,23 +82,36 @@ namespace CoronaSimulatie.SimulationObjects
             worksheet.Cells[column, 3] = SaveData.Infectious;
             worksheet.Cells[column, 4] = SaveData.Recovered;
 
-            float ds = ((float)(SaveData.Susceptible - previous_susceptible))/((float)(Globals.totalpopulation));
-            float noemer = ((float)((((float)SaveData.Susceptible) / ((float)Globals.totalpopulation)) * (((float)SaveData.Infectious) / ((float)Globals.totalpopulation))));
-            if (noemer != 0)
-            {
-                float beta = -ds / ((float)((((float)SaveData.Susceptible) / ((float)Globals.totalpopulation)) * (((float)SaveData.Infectious) / ((float)Globals.totalpopulation))));
-                worksheet.Cells[column, 6] = beta;
-            }
-            else
-            {
-                worksheet.Cells[column, 6] = 0;
-            }
-            previous_susceptible = SaveData.Susceptible;
+            float s = SaveData.Susceptible;
+            float e = SaveData.Exposed;
+            float j = SaveData.Infectious;
+            float r = SaveData.Recovered;
+            float t = Globals.totalpopulation;
 
-            float alpha = 1 / Globals.infectiondays;
-            //float gamma = 1 / Globals.a_contingiousnessdays;
-            //float r0 = (beta * alpha) / (alpha * gamma);
-            //worksheet.Cells[column, 7] = r0;
+            float ds = (s - vs) / t;
+            float noemer = (s / t) * (j / t);
+            float beta = 0;
+            if (noemer != 0)
+                beta = (-ds) / noemer;
+
+            float de = (e - ve) / t;
+            float alpha = 0;
+            if (e != 0)
+                alpha = ((-de) + beta * noemer) / (e / t);
+
+            float di = (j - vj) / t;
+            float gamma = 0;
+            if (j != 0)
+                gamma = ((-di) + alpha * (e / t)) / (j / t);
+
+            worksheet.Cells[column, 17] = beta;
+            worksheet.Cells[column, 18] = alpha;
+            worksheet.Cells[column, 19] = gamma;
+
+            vs = SaveData.Susceptible;
+            ve = SaveData.Exposed;
+            vj = SaveData.Infectious;
+            vr = SaveData.Recovered;
 
             column++;
         }
@@ -106,8 +124,11 @@ namespace CoronaSimulatie.SimulationObjects
 
         public void End()
         {
-            worksheet.Cells[2, 8] = "=AVERAGE(F3:F" + column + ")";
+            worksheet.Cells[2, 8] = "=AVERAGE(Q3: Q" + column + ")";
+            worksheet.Cells[2, 9] = "=AVERAGE(R3: R" + column + ")";
+            worksheet.Cells[2, 10] = "=AVERAGE(S3: S" + column + ")";
             worksheet.Cells[2, 11] = "=H2/J2";
+
             Range r = worksheet.Cells[2, 11];
             double s = r.Value2;
             Console.WriteLine(s);
